@@ -17,5 +17,6 @@ app.get("/", (request, response) =>{
 })
 const PORT = process.env.PORT
 app.listen(PORT, ()=> {
-    console.log(`App running on prot ${PORT}`)
+    console.log(`App running on port ${PORT}`)
 })
+

@@ -2,8 +2,9 @@ const userRouter = require("express").Router()
 
 const userController = require("../controllers/users.controllers" )
 
-userRouter.get("/", userController.getAllUsers )
-userRouter.post("/", userController.creatUsers)
+userRouter.get("/", userController.getAllUsers)
+userRouter.get("/:id", userController.getOneUser)
+userRouter.post("/", userController.createUsers)
 userRouter.patch("/:id", userController.updateUser)
 userRouter.delete("/:id", userController.deleteUser )
 
