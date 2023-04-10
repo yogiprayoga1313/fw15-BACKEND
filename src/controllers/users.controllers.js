@@ -5,7 +5,11 @@ const errorHandler = require("../helpers/erorHandler.helper")
 exports.getAllUsers = async (request, response) => {
     console.log(request.query)
     try {
-        const data = await userModel.findAllUsers()
+        const data = await userModel.findAllUsers(request.query.page, 
+            request.query.limit, 
+            request.query.search,
+            request.query.sort,
+            request.query.sortBy)
         return response.json({
             success: true,
             message: "List off all user",
@@ -55,6 +59,12 @@ exports.getOneUser = async (request, response) => {
 
 exports.createUsers = async (request, response) =>{
     try {
+        if(!request.body.fullName){
+            throw Error("name_empty_field")
+        }
+        if(!request.body.email && !request.body.password){
+            throw Error("empty_field")  
+        }
         const data = await userModel.insert(request.body)
         return response.json({
             success: true,
@@ -87,9 +97,6 @@ exports.updateUser = async (request, response) => {
                 results: data
             })
         }
-        
-        
-    
     } catch (error) {
         return  errorHandler(response, error)
     }
@@ -106,8 +113,8 @@ exports.deleteUser = async (request, response) => {
                 results: ""
             })
         }
-        // console.log(resultsUser)
-        // console.log(request.params.id)
+        console.log(resultsUser)
+        console.log(request.params.id)
         await userModel.destroy(request.params.id)
         return response.json({
             success: true,

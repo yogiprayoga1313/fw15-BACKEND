@@ -1,10 +1,20 @@
 // const { query } = require("express")
 const db = require ("../helpers/db.helper")
 
-exports.findAllUsers = async function(){
-    const {rows} = await db.query(`
-    SELECT * FROM users
-    `)
+exports.findAllUsers = async function(page, limit, search, sort, sortBy){
+    page = parseInt(page) || 1
+    limit = parseInt(limit) || 5
+    search = search || ""
+    sort = sort || "id"
+    sortBy = sortBy || "ASC"
+
+    const offset = (page - 1) * limit
+
+    const query = `
+    SELECT * FROM "users" WHERE "email" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
+    `
+    const values = [limit, offset,`%${search}%`]
+    const {rows} = await db.query(query, values)
     return rows
 }
 
@@ -19,10 +29,10 @@ exports.findOne = async function(id){
 
 exports.insert = async function(data){
     const query = `
-  INSERT INTO "users" ("email", "password") 
-  VALUES ($1, $2) RETURNING *
+  INSERT INTO "users" ("email", "password", "fullName") 
+  VALUES ($1, $2, $3) RETURNING *
   `
-    const values = [data.email, data.password]
+    const values = [data.email, data.password, data.fullName]
     const {rows} = await db.query(query, values)
     return rows [0]
 }

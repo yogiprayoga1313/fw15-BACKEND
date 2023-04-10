@@ -14,6 +14,19 @@ const errorHandler = (response, err) => {
             message: "Error: User not found!",
         })
     }
+    if(err?.message?.includes("name_empty_field")){
+        return response.status(400).json({
+            success: false,
+            message: "Error : Name cannot be empty!",
+        })
+    }
+    if(err?.message?.includes("empty_field")){
+        return response.status(400).json({
+            success: false,
+            message: "Error : Email or password cannot be empty!",
+        })
+    }
+    console.log(err)
     return response.status(500).json({
         success: false,
         message:"Error: Internal server error!",
