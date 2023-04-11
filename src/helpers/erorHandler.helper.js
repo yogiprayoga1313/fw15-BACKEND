@@ -7,6 +7,20 @@ const errorHandler = (response, err) => {
             message:"Error: Email already used!",
         })
     }
+    if(err?.message?.includes("jwt malformed")){
+        // console.log(err)
+        return response.status(401).json({
+            success: false,
+            message:"Error: Token invalid!",
+        })
+    }
+    if(err?.message?.includes("invalid signature")){
+        // console.log(err)
+        return response.status(401).json({
+            success: false,
+            message:"Error: Token Signature is Invalid!",
+        })
+    }
     if(err === undefined){
         console.log(err)
         return response.status(404).json({
@@ -24,6 +38,24 @@ const errorHandler = (response, err) => {
         return response.status(400).json({
             success: false,
             message: "Error : Email or password cannot be empty!",
+        })
+    }
+    if(err?.message?.includes("wrong_credentials")){
+        return response.status(401).json({
+            success: false,
+            message: "Wrong email or password!"
+        })
+    }
+    if(err?.message?.includes("password_unmatch")){
+        return response.status(401).json({
+            success: false,
+            message: "Password and confirm password does not match"
+        })
+    }
+    if(err?.message?.includes("unauthorized")){
+        return response.status(401).json({
+            success: false,
+            message: "unauthorized"
         })
     }
     console.log(err)

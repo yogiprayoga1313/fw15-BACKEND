@@ -1,6 +1,7 @@
 // const { response } = require("express")
 const userModel = require("../models/users.model")
 const errorHandler = require("../helpers/erorHandler.helper")
+const argon = require("argon2")
 
 exports.getAllUsers = async (request, response) => {
     console.log(request.query)
@@ -65,11 +66,16 @@ exports.createUsers = async (request, response) =>{
         if(!request.body.email && !request.body.password){
             throw Error("empty_field")  
         }
-        const data = await userModel.insert(request.body)
+        const hash = await argon.hash(request.body.password)
+        const data = {
+            ...request.body,
+            password: hash
+        }
+        const user = await userModel.insert(data)
         return response.json({
             success: true,
             message:`Creat users ${request.body.email} successfully`,
-            results: data
+            results: user
         })
     }catch(err){
         return  errorHandler(response, err)
