@@ -1,148 +1,211 @@
 {
 	"info": {
-		"_postman_id": "bc455089-3f39-479d-adf8-db7bc8fbbab8",
+		"_postman_id": "8c82d9fc-d509-49b9-b9f6-f7c92ac82d91",
 		"name": "BACKEND APP",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26802409"
 	},
 	"item": [
 		{
-			"name": "USERS",
+			"name": "ADMIN",
 			"item": [
 				{
-					"name": "GET ALL USERS",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/users",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET DETAIL USERS",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/users/:id",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "3"
+					"name": "USERS",
+					"item": [
+						{
+							"name": "GET ALL USERS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/users?sort=id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "3",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": "ASC",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "id"
+										}
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CREATE USERS",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "testacc@mail.com",
-									"type": "default"
-								},
-								{
-									"key": "password",
-									"value": "2345",
-									"type": "default"
-								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url}}/users",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UPDATE USERS",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "yogiprayoga@gmail.com",
-									"type": "default"
-								},
-								{
-									"key": "password",
-									"value": "5432",
-									"type": "default"
+						{
+							"name": "GET DETAIL USERS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "7"
+										}
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url}}/users/:id",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "4"
+						{
+							"name": "CREATE USERS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "yahudnih8@mail.com",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "kipak",
+											"type": "text"
+										},
+										{
+											"key": "fullName",
+											"value": "yoiddd",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE USERS",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/users/:id",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "10"
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE USERS",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "aminudin@gmail.com",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "5432",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "41"
+										}
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE USERS",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "44"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TEST CONNECTION",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "url",
+									"host": [
+										"url"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
