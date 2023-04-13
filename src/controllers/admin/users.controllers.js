@@ -1,11 +1,27 @@
-// const { response } = require("express")
-const userModel = require("../models/users.model")
-const errorHandler = require("../helpers/erorHandler.helper")
+const userModel = require("../../models/users.model")
+const errorHandler = require("../../helpers/erorHandler.helper")
 const argon = require("argon2")
+
 
 exports.getAllUsers = async (request, response) => {
     console.log(request.query)
-    try {
+    try { 
+        const sortWhaitlist = ["fullName", "email", "id"]
+        if(request.query.sort && !sortWhaitlist.includes(request.query.sort)){
+            return response.status(400).json({
+                success: false,
+                message:`Please choose one of the following sorting options: ${sortWhaitlist.join(",")}`
+            })
+        }
+
+        const sortByWhaitlist = ["asc", "desc"]
+        if(request.query.sortBy && !sortByWhaitlist.includes(request.query.sortBy.toLowerCase())){
+            return response.status(400).json({
+                success: false,
+                message:`Please choose one of the following sorting options:  ${sortByWhaitlist.join(",")}`
+            })
+        }
+
         const data = await userModel.findAllUsers(request.query.page, 
             request.query.limit, 
             request.query.search,
@@ -27,8 +43,15 @@ exports.getAllUsers = async (request, response) => {
 
 
 exports.getOneUser = async (request, response) => {
-    console.log("check")
+    // console.log("check")
     try {
+        console.log(parseInt(request.params.id))
+        if(isNaN(request.params.id) && parseInt(request.params.id) !== request.params.id){
+            return response.status(400).json({
+                success:false,
+                message: "Parameter id must be number!"
+            })
+        }
         const data = await userModel.findOne(request.params.id)
         console.log(data)
         if(data){
@@ -60,16 +83,20 @@ exports.getOneUser = async (request, response) => {
 
 exports.createUsers = async (request, response) =>{
     try {
-        if(!request.body.fullName){
-            throw Error("name_empty_field")
-        }
-        if(!request.body.email && !request.body.password){
-            throw Error("empty_field")  
-        }
+      
+        // if(!request.body.fullName){
+        //     throw Error("name_empty_field")
+        // }
+        // if(!request.body.email && !request.body.password){
+        //     throw Error("empty_field")  
+        // }
         const hash = await argon.hash(request.body.password)
         const data = {
             ...request.body,
             password: hash
+        }
+        if(request.file){
+            data.picture = request.file.filename
         }
         const user = await userModel.insert(data)
         return response.json({
@@ -86,9 +113,18 @@ exports.createUsers = async (request, response) =>{
 
 exports.updateUser = async (request, response) => {
     try {
-        const data = await userModel.update(request.params.id, request.body)
+        console.log(request.body)
+        const hash = await argon.hash(request.body.password)
+        const data = {
+            ...request.body,
+            password: hash
+        }
+        if(request.file){
+            data.picture = request.file.filename
+        }
+        const resultUpdate = await userModel.update(request.params.id, data)
         console.log(data)
-        if(data){
+        if(resultUpdate){
             return response.json({
                 success: true,
                 message: "Update user sucessfully",

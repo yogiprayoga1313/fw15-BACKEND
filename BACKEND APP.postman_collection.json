@@ -18,7 +18,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/users?sort=id",
+									"raw": "{{url}}/admin/users?sortBy=DESC",
 									"host": [
 										"{{url}}"
 									],
@@ -39,17 +39,17 @@
 										},
 										{
 											"key": "search",
-											"value": "test",
+											"value": "adminnew",
 											"disabled": true
 										},
 										{
 											"key": "sortBy",
-											"value": "ASC",
-											"disabled": true
+											"value": "DESC"
 										},
 										{
 											"key": "sort",
-											"value": "id"
+											"value": "id",
+											"disabled": true
 										}
 									]
 								}
@@ -74,7 +74,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "7"
+											"value": "36"
 										}
 									]
 								}
@@ -87,22 +87,27 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "fullName",
+											"value": "nyobaterbaru",
+											"type": "text"
+										},
 										{
 											"key": "email",
-											"value": "yahudnih8@mail.com",
-											"type": "default"
+											"value": "nyobaterbaru@mail.com",
+											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "kipak",
+											"value": "!@#War123",
 											"type": "text"
 										},
 										{
-											"key": "fullName",
-											"value": "yoiddd",
-											"type": "text"
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/WhatsApp Image 2023-03-10 at 9.55.15 PM.jpeg"
 										}
 									]
 								},
@@ -129,13 +134,18 @@
 									"urlencoded": [
 										{
 											"key": "email",
-											"value": "aminudin@gmail.com",
+											"value": "yahudnih1114@mail.com",
 											"type": "default"
 										},
 										{
 											"key": "password",
-											"value": "5432",
+											"value": "@War1234",
 											"type": "default"
+										},
+										{
+											"key": "fullName",
+											"value": "yoiddd",
+											"type": "text"
 										}
 									]
 								},
@@ -152,7 +162,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "41"
+											"value": "28"
 										}
 									]
 								}
@@ -177,7 +187,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "44"
+											"value": "35"
 										}
 									]
 								}
@@ -185,6 +195,10 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "CATEGORIES",
+					"item": []
 				}
 			]
 		},
@@ -201,12 +215,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "test110@mail.com",
+									"value": "newacc@mail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "1234",
+									"value": "12345",
 									"type": "text"
 								}
 							]
@@ -234,22 +248,22 @@
 							"urlencoded": [
 								{
 									"key": "fullName",
-									"value": "test 110",
+									"value": "newacc",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "test110@mail.com",
+									"value": "newacc@mail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "1234",
+									"value": "12345",
 									"type": "text"
 								},
 								{
 									"key": "confirmPassword",
-									"value": "1234",
+									"value": "12345",
 									"type": "text"
 								}
 							]
@@ -296,7 +310,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjgxMTk4MDkyfQ.a3Uq4cm_KvxMWStIc04faivhn-5m1VKKp1AvKHXly8g",
+				"value": "{{token}}",
 				"type": "string"
 			}
 		]
