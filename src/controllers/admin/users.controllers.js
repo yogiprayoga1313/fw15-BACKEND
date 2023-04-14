@@ -6,7 +6,7 @@ const argon = require("argon2")
 exports.getAllUsers = async (request, response) => {
     console.log(request.query)
     try { 
-        const sortWhaitlist = ["fullName", "email", "id"]
+        const sortWhaitlist = ["username", "email", "id"]
         if(request.query.sort && !sortWhaitlist.includes(request.query.sort)){
             return response.status(400).json({
                 success: false,
@@ -83,20 +83,10 @@ exports.getOneUser = async (request, response) => {
 
 exports.createUsers = async (request, response) =>{
     try {
-      
-        // if(!request.body.fullName){
-        //     throw Error("name_empty_field")
-        // }
-        // if(!request.body.email && !request.body.password){
-        //     throw Error("empty_field")  
-        // }
         const hash = await argon.hash(request.body.password)
         const data = {
             ...request.body,
             password: hash
-        }
-        if(request.file){
-            data.picture = request.file.filename
         }
         const user = await userModel.insert(data)
         return response.json({
@@ -119,9 +109,6 @@ exports.updateUser = async (request, response) => {
             ...request.body,
             password: hash
         }
-        if(request.file){
-            data.picture = request.file.filename
-        }
         const resultUpdate = await userModel.update(request.params.id, data)
         console.log(data)
         if(resultUpdate){
@@ -129,7 +116,7 @@ exports.updateUser = async (request, response) => {
                 success: true,
                 message: "Update user sucessfully",
                 results: data
-            })
+            })  
         }
         else{
             console.log(data)

@@ -1,7 +1,9 @@
+const cititesModels = require("../../models/citites.models")
 const errorHandler = require("../../helpers/erorHandler.helper")
-const categoriesModel = require("../../models/categories.model")
 
-exports.getAllCategories = async (request, response) => {
+
+
+exports.getAllCitites = async (request, response) => {
     console.log(request.query)
     try { 
         const sortWhaitlist = ["name"]
@@ -20,27 +22,28 @@ exports.getAllCategories = async (request, response) => {
             })
         }
 
-        const data = await categoriesModel.findAllCategories(request.query.page, 
+        const data = await cititesModels.findAllCitites(request.query.page, 
             request.query.limit, 
             request.query.search,
             request.query.sort,
             request.query.sortBy)
         return response.json({
             success: true,
-            message: "List off all categories",
+            message: "List off all citites",
             results: data
         })
-  
+
     } 
     catch (error) {
         console.log(error)
         return errorHandler(response, error)
-  
+
     }
 }
 
-exports.createCategories = async (request, response) => {
-    console.log(request)
+
+exports.createCitites = async (request, response) => {
+    // console.log(request)
     try{
         if(!request.body.name){
             return response.json({
@@ -49,60 +52,68 @@ exports.createCategories = async (request, response) => {
                 results: ""
             })
         }
-        const categories = await categoriesModel.insert(request.body)
+        const data = {
+            ...request.body
+        }
+        if(request.file){
+            data.picture = request.file.filename
+        }
+        const citites = await cititesModels.insert(data)
         return response.json({
             success: true,
-            message: "Creat categories success",
-            results: categories
+            message: "Create citites success",
+            results: citites
         })
     }catch(err){
         return errorHandler(response, err) 
     }
 }
 
-exports.updateCategories = async (request, response) => {
-    // console.log(resultUpdate)
-    try{
-        const resultUpdate = await categoriesModel.update(request.params.id, request.body)
+exports.updateCitites = async (request, response) => {
+    try {
+        const resultUpdate = await cititesModels.update(request.params.id, request.body)
+        // console.log(data)
         if(resultUpdate){
             return response.json({
                 success: true,
-                message: "Update user sucessfully",
+                message: "Update citites sucessfully",
                 results: resultUpdate
-            })
+            })  
         }
         else{
+            // console.log(data)
             return response.status(404).json({
                 success: false,
-                message: "Error : Data not found",
-                results: ""
+                message: "Error : Data citites not found",
+                results: "*"
             })
         }
+    } catch (error) {
+        return  errorHandler(response, error)
     }
-    catch(err){
-        return errorHandler(response, err)
-    }
+ 
 }
 
-
-exports.deleteCategories = async (request, response) => {
-    try{
-        const resultCategories = await categoriesModel.findOne(request.params.id)
-        if(!resultCategories){
+exports.deleteCitites = async (request, response) => {
+    try {
+        const resultsUser = await cititesModels.findOne(request.params.id)
+        if(!resultsUser){
             return response.status(404).json({
                 success: false,
-                message: "Error : Data users not found",
+                message: "Error : Data citites not found",
                 results: ""
             })
         }
-        await categoriesModel.destroy(request.params.id)
+        console.log(resultsUser)
+        console.log(request.params.id)
+        await cititesModels.destroy(request.params.id)
         return response.json({
             success: true,
-            message: "Delete user sucessfully",
+            message: "Delete citites sucessfully",
             results : ""
         })
+    } catch (error) {
+        return  errorHandler(response, error)
     }
-    catch(err){
-        return errorHandler(response, err)
-    }
+  
 }

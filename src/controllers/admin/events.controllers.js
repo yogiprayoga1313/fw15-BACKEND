@@ -1,7 +1,9 @@
+const eventsModels = require("../../models/events.models")
 const errorHandler = require("../../helpers/erorHandler.helper")
-const categoriesModel = require("../../models/categories.model")
 
-exports.getAllCategories = async (request, response) => {
+
+
+exports.getAllEvents = async (request, response) => {
     console.log(request.query)
     try { 
         const sortWhaitlist = ["name"]
@@ -20,89 +22,103 @@ exports.getAllCategories = async (request, response) => {
             })
         }
 
-        const data = await categoriesModel.findAllCategories(request.query.page, 
+        const data = await eventsModels.findAllEvents(request.query.page, 
             request.query.limit, 
             request.query.search,
             request.query.sort,
             request.query.sortBy)
         return response.json({
             success: true,
-            message: "List off all categories",
+            message: "List off all events",
             results: data
         })
-  
+
     } 
     catch (error) {
         console.log(error)
         return errorHandler(response, error)
-  
+
     }
 }
 
-exports.createCategories = async (request, response) => {
-    console.log(request)
+
+exports.createEvents = async (request, response) => {
     try{
-        if(!request.body.name){
+        if(!request.body.title){
             return response.json({
                 success: false,
                 message: "Required body name",
                 results: ""
             })
         }
-        const categories = await categoriesModel.insert(request.body)
+        const data = {
+            ...request.body
+        }
+        if(request.file){
+            data.picture = request.file.filename
+        }
+        const citites = await eventsModels.insert(data)
         return response.json({
             success: true,
-            message: "Creat categories success",
-            results: categories
+            message: "Create events success",
+            results: citites
         })
     }catch(err){
         return errorHandler(response, err) 
     }
 }
 
-exports.updateCategories = async (request, response) => {
-    // console.log(resultUpdate)
-    try{
-        const resultUpdate = await categoriesModel.update(request.params.id, request.body)
+exports.updateEvents = async (request, response) => {
+    try {
+        const data = {
+            ...request.body
+        }
+        if(request.file){
+            data.picture = request.file.filename
+        }
+        const resultUpdate = await eventsModels.update(request.params.id, request.body)
+        // console.log(data)
         if(resultUpdate){
             return response.json({
                 success: true,
-                message: "Update user sucessfully",
+                message: "Update events sucessfully",
                 results: resultUpdate
-            })
+            })  
         }
         else{
+            // console.log(data)
             return response.status(404).json({
                 success: false,
-                message: "Error : Data not found",
-                results: ""
+                message: "Error : Data events not found",
+                results: "*"
             })
         }
+    } catch (error) {
+        return  errorHandler(response, error)
     }
-    catch(err){
-        return errorHandler(response, err)
-    }
+ 
 }
 
-
-exports.deleteCategories = async (request, response) => {
-    try{
-        const resultCategories = await categoriesModel.findOne(request.params.id)
-        if(!resultCategories){
+exports.deleteEvents = async (request, response) => {
+    try {
+        const resultsUser = await eventsModels.findOne(request.params.id)
+        if(!resultsUser){
             return response.status(404).json({
                 success: false,
-                message: "Error : Data users not found",
+                message: "Error : Data events not found",
                 results: ""
             })
         }
-        await categoriesModel.destroy(request.params.id)
+        console.log(resultsUser)
+        console.log(request.params.id)
+        await eventsModels.destroy(request.params.id)
         return response.json({
             success: true,
-            message: "Delete user sucessfully",
+            message: "Delete evnets sucessfully",
             results : ""
         })
+    } catch (error) {
+        return  errorHandler(response, error)
     }
-    catch(err){
-        return errorHandler(response, err)
-    }
+  
 }

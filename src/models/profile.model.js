@@ -1,7 +1,6 @@
-// const { query } = require("express")
 const db = require ("../helpers/db.helper")
 
-exports.findAllUsers = async function(page, limit, search, sort, sortBy){
+exports.findAllProfile = async function(page, limit, search, sort, sortBy){
     page = parseInt(page) || 1
     limit = parseInt(limit) || 5
     search = search || ""
@@ -11,7 +10,7 @@ exports.findAllUsers = async function(page, limit, search, sort, sortBy){
     const offset = (page - 1) * limit
 
     const query = `
-    SELECT * FROM "users" WHERE "email" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
+    SELECT * FROM "profile" WHERE "fullName" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
     `
     const values = [limit, offset,`%${search}%`]
     const {rows} = await db.query(query, values)
@@ -20,7 +19,7 @@ exports.findAllUsers = async function(page, limit, search, sort, sortBy){
 
 exports.findOne = async function(id){
     const query = `
-  SELECT  * FROM "users" WHERE id=$1
+  SELECT  * FROM "profile" WHERE id=$1
   `
     const values = [id]
     const {rows} = await db.query(query, values)
@@ -29,7 +28,7 @@ exports.findOne = async function(id){
 
 exports.findOneByEmail = async function(email){
     const query = `
-SELECT  * FROM "users" WHERE email=$1
+SELECT  * FROM "profile" WHERE email=$1
 `
     const values = [email]
     const {rows} = await db.query(query, values)
@@ -37,38 +36,34 @@ SELECT  * FROM "users" WHERE email=$1
 }
 
 exports.insert = async function(data){
+    // console.log(data)
     const query = `
-  INSERT INTO "users" ("email", "password", "username") 
-  VALUES ($1, $2, $3) RETURNING *
+  INSERT INTO "profile" ("picture", "fullName", "phoneNumber", "gender", "profession", "nationality", "birthDate")
+  VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *
   `
-    const values = [data.email, data.password, data.username]
+    const values = [data.picture, data.fullName, data.phoneNumber, data.gender, data.profession, data.nationality, data.birthDate]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
 
 exports.update = async function(id, data){
+    console.log(data.picture, "data ini dimana?")
     const query = `
-  UPDATE "users" 
-  SET "email"=$2, "password"=$3, "username"=$4
+  UPDATE "profile" 
+  SET "picture"=$2, "fullName"=$3, "gender"=$4, "profession"=$5, "nationality"=$6, "birthDate"=$7
   WHERE "id"=$1
   RETURNING *
 `
-    const values = [id, data.email, data.password, data.username]
+    const values = [id, data.picture, data.fullName, data.gender, data.profession, data.nationality, data.birthDate]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
 
 exports.destroy = async function(id){
     const query = `
-  DELETE FROM "users" WHERE "id"=$1
+  DELETE FROM "profile" WHERE "id"=$1
 `
     const values = [id]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
-
-
-// exports.findEmail = function(){
-//     return db.query("SELECT email FROM users")
-// }
-//  find email
