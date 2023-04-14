@@ -1,12 +1,10 @@
-const cititesModels = require("../../models/citites.models")
 const errorHandler = require("../../helpers/erorHandler.helper")
+const eventCategoriesModels = require("../../models/eventCategories.model")
 
-
-
-exports.getAllCitites = async (request, response) => {
+exports.getAllEventCategories = async (request, response) => {
     console.log(request.query)
     try { 
-        const sortWhaitlist = ["name"]
+        const sortWhaitlist = ["eventId"]
         if(request.query.sort && !sortWhaitlist.includes(request.query.sort)){
             return response.status(400).json({
                 success: false,
@@ -22,105 +20,89 @@ exports.getAllCitites = async (request, response) => {
             })
         }
 
-        const data = await cititesModels.findAllCitites(request.query.page, 
+        const data = await eventCategoriesModels.findAllEventCategoris(request.query.page, 
             request.query.limit, 
             request.query.search,
             request.query.sort,
             request.query.sortBy)
         return response.json({
             success: true,
-            message: "List off all citites",
+            message: "List off all Event Categories",
             results: data
         })
-
+  
     } 
     catch (error) {
         console.log(error)
         return errorHandler(response, error)
-
+  
     }
 }
 
-
-exports.createCitites = async (request, response) => {
-    // console.log(request)
+exports.createEventCategories = async (request, response) => {
+    console.log(request)
     try{
-        if(!request.body.name){
+        if(!request.body.eventId){
             return response.json({
                 success: false,
-                message: "Required body name",
+                message: "Required body Event Id",
                 results: ""
             })
         }
-        const data = {
-            ...request.body
-        }
-        if(request.file){
-            data.picture = request.file.filename
-        }
-        const citites = await cititesModels.insert(data)
+        const categories = await eventCategoriesModels.insert(request.body)
         return response.json({
             success: true,
-            message: "Create citites success",
-            results: citites
+            message: "Creat Event Categories success",
+            results: categories
         })
     }catch(err){
         return errorHandler(response, err) 
     }
 }
 
-exports.updateCitites = async (request, response) => {
-    try {
-        const data = {
-            ...request.body
-        }
-        console.log(data.picture, "data controller")
-        if(request.file){
-            data.picture = request.file.filename
-        }
-        const resultUpdate = await cititesModels.update(request.params.id, data)
-        // console.log(data)
+exports.updateEventCategories = async (request, response) => {
+    // console.log(resultUpdate)
+    try{
+        const resultUpdate = await eventCategoriesModels.update(request.params.id, request.body)
         if(resultUpdate){
             return response.json({
                 success: true,
-                message: "Update citites sucessfully",
+                message: "Update Event Categories sucessfully",
                 results: resultUpdate
-            })  
-        }
-        else{
-            // console.log(data)
-            return response.status(404).json({
-                success: false,
-                message: "Error : Data citites not found",
-                results: "*"
             })
         }
-    } catch (error) {
-        return  errorHandler(response, error)
-    }
- 
-}
-
-exports.deleteCitites = async (request, response) => {
-    try {
-        const resultsUser = await cititesModels.findOne(request.params.id)
-        if(!resultsUser){
+        else{
             return response.status(404).json({
                 success: false,
-                message: "Error : Data citites not found",
+                message: "Error : Data not found",
                 results: ""
             })
         }
-        console.log(resultsUser)
-        console.log(request.params.id)
-        await cititesModels.destroy(request.params.id)
+    }
+    catch(err){
+        return errorHandler(response, err)
+    }
+}
+
+
+exports.deleteEventCategories = async (request, response) => {
+    try{
+        const resultCategories = await eventCategoriesModels.findOne(request.params.id)
+        if(!resultCategories){
+            return response.status(404).json({
+                success: false,
+                message: "Error : Data event categories not found",
+                results: ""
+            })
+        }
+        await eventCategoriesModels.destroy(request.params.id)
         return response.json({
             success: true,
-            message: "Delete citites sucessfully",
+            message: "Delete Event categories sucessfully",
             results : ""
         })
-    } catch (error) {
-        return  errorHandler(response, error)
     }
-  
+    catch(err){
+        return errorHandler(response, err)
+    }
 }

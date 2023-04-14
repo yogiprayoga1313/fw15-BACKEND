@@ -1,9 +1,9 @@
-const cititesModels = require("../../models/citites.models")
+const partnersModels = require("../../models/partners.models")
 const errorHandler = require("../../helpers/erorHandler.helper")
 
 
 
-exports.getAllCitites = async (request, response) => {
+exports.getAllPartners = async (request, response) => {
     console.log(request.query)
     try { 
         const sortWhaitlist = ["name"]
@@ -22,14 +22,14 @@ exports.getAllCitites = async (request, response) => {
             })
         }
 
-        const data = await cititesModels.findAllCitites(request.query.page, 
+        const data = await partnersModels.findAllPartners(request.query.page, 
             request.query.limit, 
             request.query.search,
             request.query.sort,
             request.query.sortBy)
         return response.json({
             success: true,
-            message: "List off all citites",
+            message: "List off all Partners",
             results: data
         })
 
@@ -42,7 +42,7 @@ exports.getAllCitites = async (request, response) => {
 }
 
 
-exports.createCitites = async (request, response) => {
+exports.createPartners = async (request, response) => {
     // console.log(request)
     try{
         if(!request.body.name){
@@ -58,10 +58,10 @@ exports.createCitites = async (request, response) => {
         if(request.file){
             data.picture = request.file.filename
         }
-        const citites = await cititesModels.insert(data)
+        const citites = await partnersModels.insert(data)
         return response.json({
             success: true,
-            message: "Create citites success",
+            message: "Create Partners success",
             results: citites
         })
     }catch(err){
@@ -69,7 +69,7 @@ exports.createCitites = async (request, response) => {
     }
 }
 
-exports.updateCitites = async (request, response) => {
+exports.updatePartners = async (request, response) => {
     try {
         const data = {
             ...request.body
@@ -78,12 +78,12 @@ exports.updateCitites = async (request, response) => {
         if(request.file){
             data.picture = request.file.filename
         }
-        const resultUpdate = await cititesModels.update(request.params.id, data)
+        const resultUpdate = await partnersModels.update(request.params.id, data)
         // console.log(data)
         if(resultUpdate){
             return response.json({
                 success: true,
-                message: "Update citites sucessfully",
+                message: "Update Partners sucessfully",
                 results: resultUpdate
             })  
         }
@@ -91,7 +91,7 @@ exports.updateCitites = async (request, response) => {
             // console.log(data)
             return response.status(404).json({
                 success: false,
-                message: "Error : Data citites not found",
+                message: "Error : Data Partners not found",
                 results: "*"
             })
         }
@@ -101,22 +101,22 @@ exports.updateCitites = async (request, response) => {
  
 }
 
-exports.deleteCitites = async (request, response) => {
+exports.deletePartners = async (request, response) => {
     try {
-        const resultsUser = await cititesModels.findOne(request.params.id)
+        const resultsUser = await partnersModels.findOne(request.params.id)
         if(!resultsUser){
             return response.status(404).json({
                 success: false,
-                message: "Error : Data citites not found",
+                message: "Error : Data Partners not found",
                 results: ""
             })
         }
         console.log(resultsUser)
         console.log(request.params.id)
-        await cititesModels.destroy(request.params.id)
+        await partnersModels.destroy(request.params.id)
         return response.json({
             success: true,
-            message: "Delete citites sucessfully",
+            message: "Delete Partners sucessfully",
             results : ""
         })
     } catch (error) {

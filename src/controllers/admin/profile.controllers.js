@@ -70,11 +70,11 @@ exports.updateProfile = async (request, response) => {
         const data = {
             ...request.body
         }
-        console.log(request.file, "datanya ada")
+        console.log(request.file, "data contoroler")
         if (request.file){
             data.picture = request.file.filename
         }
-        const resultUpdate = await profileModels.update(request.params.id, request.body)
+        const resultUpdate = await profileModels.update(request.params.id, data)
         // console.log(data)
         if(resultUpdate){
             return response.json({
