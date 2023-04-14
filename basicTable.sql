@@ -1,10 +1,9 @@
 CREATE TABLE "users" (
     "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    "fullName" VARCHAR (255),
+    "username" VARCHAR (255),
     "email" VARCHAR (255) UNIQUE,
     "password" VARCHAR (255),
     "createdAt" TIMESTAMP DEFAULT NOW(),
-    "picture" VARCHAR(255),
     "updateAt" TIMESTAMP DEFAULT NULL
 );
 
@@ -28,7 +27,7 @@ CREATE TABLE "categories" (
     "updateAt" TIMESTAMP DEFAULT NULL
 );
 
-CREATE TABLE "cities" (
+CREATE TABLE "citites" (
     "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     "picture" VARCHAR(255),
     "name" VARCHAR(255),

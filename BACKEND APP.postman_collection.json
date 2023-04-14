@@ -18,7 +18,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/users?sortBy=DESC",
+									"raw": "{{url}}/admin/users?sortBy=ASC",
 									"host": [
 										"{{url}}"
 									],
@@ -34,17 +34,17 @@
 										},
 										{
 											"key": "limit",
-											"value": "2",
+											"value": "a",
 											"disabled": true
 										},
 										{
 											"key": "search",
-											"value": "adminnew",
+											"value": "1",
 											"disabled": true
 										},
 										{
 											"key": "sortBy",
-											"value": "DESC"
+											"value": "ASC"
 										},
 										{
 											"key": "sort",
@@ -71,10 +71,17 @@
 										"users",
 										":id"
 									],
+									"query": [
+										{
+											"key": "asdasd",
+											"value": "sadad",
+											"disabled": true
+										}
+									],
 									"variable": [
 										{
 											"key": "id",
-											"value": "36"
+											"value": null
 										}
 									]
 								}
@@ -87,16 +94,11 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "fullName",
-											"value": "nyobaterbaru",
-											"type": "text"
-										},
+									"mode": "urlencoded",
+									"urlencoded": [
 										{
 											"key": "email",
-											"value": "nyobaterbaru@mail.com",
+											"value": "newacc5@mail.com",
 											"type": "text"
 										},
 										{
@@ -105,9 +107,9 @@
 											"type": "text"
 										},
 										{
-											"key": "picture",
-											"type": "file",
-											"src": "/C:/Users/telkomdev/Downloads/WhatsApp Image 2023-03-10 at 9.55.15 PM.jpeg"
+											"key": "username",
+											"value": "acc new 5",
+											"type": "text"
 										}
 									]
 								},
@@ -134,17 +136,17 @@
 									"urlencoded": [
 										{
 											"key": "email",
-											"value": "yahudnih1114@mail.com",
-											"type": "default"
+											"value": "newacc5@mail.com",
+											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "@War1234",
-											"type": "default"
+											"value": "@testTT123",
+											"type": "text"
 										},
 										{
-											"key": "fullName",
-											"value": "yoiddd",
+											"key": "username",
+											"value": "acc new 5",
 											"type": "text"
 										}
 									]
@@ -162,7 +164,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "28"
+											"value": "1"
 										}
 									]
 								}
@@ -198,7 +200,628 @@
 				},
 				{
 					"name": "CATEGORIES",
-					"item": []
+					"item": [
+						{
+							"name": "GET ALL CATEGORIES",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "sort",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "sotyBy",
+											"value": "asc",
+											"type": "text"
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "limit",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "search",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE CATEGORIES",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "test",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE CATEGORIES",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "new event",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/categories/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE CATEGORIES",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/categories/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "15"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CITITES",
+					"item": [
+						{
+							"name": "GET ALL CITITES",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/citites?sortyBy=&sort=&limit&search&page=3",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"citites"
+									],
+									"query": [
+										{
+											"key": "sortyBy",
+											"value": ""
+										},
+										{
+											"key": "sort",
+											"value": ""
+										},
+										{
+											"key": "limit",
+											"value": null
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "page",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE CITITES",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "cimanggu",
+											"type": "text"
+										},
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/photo_6291762613876535946_y.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/citites",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"citites"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE CITITES",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "majenang",
+											"type": "text"
+										},
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/How Much to Tip for Pizza Delivery_.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/citites/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"citites",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "19"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DETELE CITITES",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/citites/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"citites",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "15"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PROFILE",
+					"item": [
+						{
+							"name": "CREATE PROFILE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/photo_6226501925843612395_y.jpg"
+										},
+										{
+											"key": "fullName",
+											"value": "Yogi Prayoga",
+											"type": "text"
+										},
+										{
+											"key": "phoneNumber",
+											"value": "088888888",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "profession",
+											"value": "CEO",
+											"type": "text"
+										},
+										{
+											"key": "nationality",
+											"value": "indonesia",
+											"type": "text"
+										},
+										{
+											"key": "birthDate",
+											"value": "1998-01-13",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/profile",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL PROFILE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/profile?sortBy=asc&page=2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "asc"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE PROFILE",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/photo_6271770378632278605_y.jpg"
+										},
+										{
+											"key": "fullName",
+											"value": "Yogi Prayoga new",
+											"type": "text"
+										},
+										{
+											"key": "phoneNumber",
+											"value": "088877784332767",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "profession",
+											"value": "CEO",
+											"type": "text"
+										},
+										{
+											"key": "nationality",
+											"value": "USA",
+											"type": "text"
+										},
+										{
+											"key": "birthDate",
+											"value": "1998-01-13",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/profile/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE PROFILE",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/profile/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EVENTS",
+					"item": [
+						{
+							"name": "CREATE EVENTS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/How Much to Tip for Pizza Delivery_.jpg"
+										},
+										{
+											"key": "title",
+											"value": "evnets 2",
+											"type": "text"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01",
+											"type": "text"
+										},
+										{
+											"key": "cityId",
+											"value": "1223123232",
+											"type": "text"
+										},
+										{
+											"key": "descriptions",
+											"value": "ahjdadjkadahdjadma",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/events",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL EVENTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/events?page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE EVENTS",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "titile",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "date",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "cityId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "descriptions",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/events/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE EVENTS",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/events/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
