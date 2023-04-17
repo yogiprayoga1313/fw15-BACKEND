@@ -34,14 +34,22 @@ SELECT  * FROM "profile" WHERE email=$1
     const {rows} = await db.query(query, values)
     return rows[0]
 }
+exports.findOneById = async function(id){
+    const query = `
+SELECT  * FROM "profile" WHERE id=$1
+`
+    const values = [id]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
 
 exports.insert = async function(data){
     // console.log(data)
     const query = `
-  INSERT INTO "profile" ("picture", "fullName", "phoneNumber", "gender", "profession", "nationality", "birthDate")
-  VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *
+  INSERT INTO "profile" ("picture", "fullName", "phoneNumber", "gender", "profession", "nationality", "birthDate", "userId")
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
   `
-    const values = [data.picture, data.fullName, data.phoneNumber, data.gender, data.profession, data.nationality, data.birthDate]
+    const values = [data.picture, data.fullName, data.phoneNumber, data.gender, data.profession, data.nationality, data.birthDate, data.userId]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
@@ -50,11 +58,11 @@ exports.update = async function(id, data){
     // console.log(data.picture, "data ini dimana?")
     const query = `
   UPDATE "profile" 
-  SET "picture"=$2, "fullName"=$3, "gender"=$4, "profession"=$5, "nationality"=$6, "birthDate"=$7
+  SET "picture"=$2, "fullName"=$3, "phoneNumber"=$4,"gender"=$5, "profession"=$6, "nationality"=$7, "birthDate"=$8
   WHERE "id"=$1
   RETURNING *
 `
-    const values = [id, data.picture, data.fullName, data.gender, data.profession, data.nationality, data.birthDate]
+    const values = [id, data.picture, data.fullName, data.phoneNumber, data.gender, data.profession, data.nationality, data.birthDate]
     const {rows} = await db.query(query, values)
     return rows [0]
 }

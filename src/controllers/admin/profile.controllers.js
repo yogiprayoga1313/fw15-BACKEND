@@ -104,16 +104,27 @@ exports.createProfile = async (request, response) =>{
 
 exports.updateProfile = async (request, response) => {
     try {
-        // console.log(request.body)
-        const data = {
-            ...request.body
+        const resultDataProfile = await profileModels.findOneById(request.params.id)
+        console.log(resultDataProfile)
+        if(!resultDataProfile){
+            return response.status(400).json({
+                success: false,
+                message: "Data not found!"
+            })
         }
-        // console.log(request.file, "data contoroler")
+        const data = {
+            picture:request.body.picture?? resultDataProfile.picture,
+            fullName:request.body.fullName?? resultDataProfile.fullName,
+            phoneNumber:request.body.phoneNumber?? resultDataProfile.phoneNumber,
+            gender:request.body.gender?? resultDataProfile.gender,
+            profession:request.body.profession?? resultDataProfile.profession,
+            nationality:request.body.nationality?? resultDataProfile.nationality,
+            birthDate:request.body.birthDate?? resultDataProfile.birthDate,
+        }
         if (request.file){
             data.picture = request.file.filename
         }
         const resultUpdate = await profileModels.update(request.params.id, data)
-        // console.log(data)
         if(resultUpdate){
             return response.json({
                 success: true,
@@ -122,7 +133,6 @@ exports.updateProfile = async (request, response) => {
             })  
         }
         else{
-            // console.log(data)
             return response.status(404).json({
                 success: false,
                 message: "Error : Data citites not found",

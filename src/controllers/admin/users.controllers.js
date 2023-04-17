@@ -1,4 +1,5 @@
 const userModel = require("../../models/users.model")
+const profileModels = require("../../models/profile.model")
 const errorHandler = require("../../helpers/erorHandler.helper")
 const argon = require("argon2")
 
@@ -53,7 +54,7 @@ exports.getOneUser = async (request, response) => {
             })
         }
         const data = await userModel.findOne(request.params.id)
-        console.log(data)
+        // console.log(data)
         if(data){
             console.log(data)
             return response.json({
@@ -89,6 +90,17 @@ exports.createUsers = async (request, response) =>{
             password: hash
         }
         const user = await userModel.insert(data)
+        console.log(user)
+        await profileModels.insert({
+            picture:"",
+            fullName:"",
+            phoneNumber:"",
+            gender:true,
+            profession:"",
+            nationality:"",
+            birthDate:new Date(),
+            userId:user.id,
+        })
         return response.json({
             success: true,
             message:`Creat users ${request.body.username} successfully`,
@@ -142,8 +154,8 @@ exports.deleteUser = async (request, response) => {
                 results: ""
             })
         }
-        console.log(resultsUser)
-        console.log(request.params.id)
+        // console.log(resultsUser)
+        // console.log(request.params.id)
         await userModel.destroy(request.params.id)
         return response.json({
             success: true,

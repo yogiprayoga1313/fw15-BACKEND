@@ -1,4 +1,5 @@
 const userModel = require("../models/users.model")
+const profileModels = require ("../models/profile.model")
 const errorHandler = require("../helpers/erorHandler.helper")
 const jwt = require("jsonwebtoken")
 const { APP_SECRET } = process.env
@@ -29,7 +30,7 @@ exports.login = async (request, response) => {
 
 exports.register = async (request, response) => {
     try {
-        const { password, confirmPassword } = request.body
+        const {fullName, password, confirmPassword } = request.body
         if (password !== confirmPassword) {
             throw Error("password_unmatch")
         }
@@ -39,6 +40,11 @@ exports.register = async (request, response) => {
             password: hash
         }
         const user = await userModel.insert(data)
+        const profileData = {
+            fullName,
+            userId: user.id,
+        }
+        await profileModels.insert(profileData)
         const token = jwt.sign({ id: user.id }, APP_SECRET)
         return response.json({
             success: true,
