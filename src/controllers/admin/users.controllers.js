@@ -91,7 +91,7 @@ exports.createUsers = async (request, response) =>{
         const user = await userModel.insert(data)
         return response.json({
             success: true,
-            message:`Creat users ${request.body.email} successfully`,
+            message:`Creat users ${request.body.username} successfully`,
             results: user
         })
     }catch(err){

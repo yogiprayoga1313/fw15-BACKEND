@@ -98,7 +98,7 @@
 									"urlencoded": [
 										{
 											"key": "email",
-											"value": "newacc5@mail.com",
+											"value": "newacc1@mail.com",
 											"type": "text"
 										},
 										{
@@ -108,7 +108,7 @@
 										},
 										{
 											"key": "username",
-											"value": "acc new 5",
+											"value": "acc new 1",
 											"type": "text"
 										}
 									]
@@ -339,6 +339,14 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "GET DETAIL CATEGORIES",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
 						}
 					]
 				},
@@ -480,6 +488,14 @@
 										}
 									]
 								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL CITITES",
+							"request": {
+								"method": "GET",
+								"header": []
 							},
 							"response": []
 						}
@@ -663,6 +679,14 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "GET DETAIL PROFILE",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
 						}
 					]
 				},
@@ -820,6 +844,14 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "GET DETAIL EVENTS",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
 						}
 					]
 				},
@@ -877,6 +909,14 @@
 						},
 						{
 							"name": "DELETE EVENT CATEGORIES",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL CATEGORIES",
 							"request": {
 								"method": "GET",
 								"header": []
@@ -949,6 +989,655 @@
 						},
 						{
 							"name": "DELETE PARTNERS",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL PARTNERS",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RESERVATION SECTION",
+					"item": [
+						{
+							"name": "CREATE RESERVATION SECTION",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL RESERVATION SECTION",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/admin/reservationSection?page&limit&search&sort&sortBy=desc",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservationSection"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": null
+										},
+										{
+											"key": "limit",
+											"value": null
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "sort",
+											"value": null
+										},
+										{
+											"key": "sortBy",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE RESERVATION SECTION",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "amin new",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "offline",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/reservationSection/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservationSection",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE RESERVATION SECTION",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/reservationSection/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservationSection",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL RESERVATION SECTION",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RESERVATION STATUS",
+					"item": [
+						{
+							"name": "GET ALL RESERVATION STATUS",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/admin/reservationStatus?page=1&limit&search&sort&sortBy",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservationStatus"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": null
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "sort",
+											"value": null
+										},
+										{
+											"key": "sortBy",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE RESERVATION STATUS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "not present",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/reservationStatus",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservationStatus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE RESERVATION STATUS",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "not present",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/reservationSection/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservationSection",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE RESERVATION STATUS",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/reservationStatus/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservationStatus",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL RESERVATION STATUS",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PAYMENT METHOD",
+					"item": [
+						{
+							"name": "CREATE PAYMENT METHOD",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Credit Card",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/paymentMethod",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"paymentMethod"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL PAYMENT METHOD",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/paymentMethod?page&limit=3&search&sort&soryBy=",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"paymentMethod"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": null
+										},
+										{
+											"key": "limit",
+											"value": "3"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "sort",
+											"value": null
+										},
+										{
+											"key": "soryBy",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE PAYMENT METHOD",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Bank Transfer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/paymentMethod/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"paymentMethod",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE PAYMENT METHOD",
+							"request": {
+								"method": "DELETE",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL PAYMENT METHOD",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RESERVATION",
+					"item": [
+						{
+							"name": "CREATE RESERVATION",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/reservation",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL RESERVATION",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/reservations?page=&limit=1&search&sort&sortBy",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservations"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": ""
+										},
+										{
+											"key": "limit",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "sort",
+											"value": null
+										},
+										{
+											"key": "sortBy",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE RESERVATION",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "statusId",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "paymentMethod",
+											"value": "1234",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/reservations/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservations",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE RESERVATION",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/reservations/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"reservations",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL RESRRVATION",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RESERVATION TICKETS",
+					"item": [
+						{
+							"name": "CREATE RESERVATION TICKETS",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL RESERVATION TICKTES",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE TICKETS",
+							"request": {
+								"method": "PATCH",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE TICKETS",
+							"request": {
+								"method": "DELETE",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL RESERVATION TICKTES",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "WISHLIST",
+					"item": [
+						{
+							"name": "CREATE WISHLIST",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL WISHLIST",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE WISHLIST",
+							"request": {
+								"method": "PATCH",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE WISHLIST",
+							"request": {
+								"method": "DELETE",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL WISHLIST",
 							"request": {
 								"method": "GET",
 								"header": []

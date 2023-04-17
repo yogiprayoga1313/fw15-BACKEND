@@ -1,6 +1,6 @@
 const db = require ("../helpers/db.helper")
 
-exports.findAllEventCategoris = async function(page, limit, search, sort, sortBy){
+exports.findAllReservationStatus = async function(page, limit, search, sort, sortBy){
     page = parseInt(page) || 1
     limit = parseInt(limit) || 5
     search = search || ""
@@ -10,7 +10,7 @@ exports.findAllEventCategoris = async function(page, limit, search, sort, sortBy
     const offset = (page - 1) * limit
 
     const query = `
-  SELECT * FROM "eventCategories" WHERE "eventId" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
+  SELECT * FROM "reservationStatus" WHERE "name" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
   `
     const values = [limit, offset,`%${search}%`]
     const {rows} = await db.query(query, values)
@@ -19,7 +19,7 @@ exports.findAllEventCategoris = async function(page, limit, search, sort, sortBy
 
 exports.findOne = async function(id){
     const query = `
-SELECT  * FROM "eventCategories" WHERE id=$1
+SELECT  * FROM "reservationStatus" WHERE id=$1
 `
     const values = [id]
     const {rows} = await db.query(query, values)
@@ -28,29 +28,29 @@ SELECT  * FROM "eventCategories" WHERE id=$1
 
 exports.insert = async function(data){
     const query = `
-INSERT INTO "eventCategories" ("eventId", "categoryId") 
-VALUES ($1, $2) RETURNING *
+INSERT INTO "reservationStatus" ("name") 
+VALUES ($1) RETURNING *
 `
-    const values = [data.eventId, data.categoryId]
+    const values = [data.name]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
 
 exports.update = async function(id, data){
     const query = `
-UPDATE "eventCategories" 
-SET "eventId"=$2, "categoryId"=$3
+UPDATE "reservationStatus" 
+SET "name"=$2
 WHERE "id"=$1
 RETURNING *
 `
-    const values = [id, data.eventId, data.categoryId]
+    const values = [id, data.name]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
 
 exports.destroy = async function(id){
     const query = `
-DELETE FROM "eventCategories" WHERE "id"=$1
+DELETE FROM "reservationStatus" WHERE "id"=$1
 `
     const values = [id]
     const {rows} = await db.query(query, values)

@@ -1,10 +1,10 @@
 const errorHandler = require("../../helpers/erorHandler.helper")
-const categoriesModel = require("../../models/categories.models")
+const wishlistModels = require("../../models/wishlist.models")
 
-exports.getAllCategories = async (request, response) => {
+exports.getAllWishlist = async (request, response) => {
     console.log(request.query)
     try { 
-        const sortWhaitlist = ["name"]
+        const sortWhaitlist = ["eventId", "userId"]
         if(request.query.sort && !sortWhaitlist.includes(request.query.sort)){
             return response.status(400).json({
                 success: false,
@@ -20,14 +20,14 @@ exports.getAllCategories = async (request, response) => {
             })
         }
 
-        const data = await categoriesModel.findAllCategories(request.query.page, 
+        const data = await wishlistModels.findAllWishlist(request.query.page, 
             request.query.limit, 
             request.query.search,
             request.query.sort,
             request.query.sortBy)
         return response.json({
             success: true,
-            message: "List off all categories",
+            message: "List off all Wishlist",
             results: data
         })
   
@@ -39,24 +39,23 @@ exports.getAllCategories = async (request, response) => {
     }
 }
 
-
-exports.getOneCategories = async (request, response) => {
+exports.getOneWishlist = async (request, response) => {
     // console.log("check")
     try {
-        console.log(parseInt(request.params.id))
+        // console.log(parseInt(request.params.id))
         if(isNaN(request.params.id) && parseInt(request.params.id) !== request.params.id){
             return response.status(400).json({
                 success:false,
                 message: "Parameter id must be number!"
             })
         }
-        const data = await categoriesModel.findOne(request.params.id)
-        console.log(data)
+        const data = await wishlistModels.findOne(request.params.id)
+        // console.log(data)
         if(data){
             console.log(data)
             return response.json({
                 success: true,
-                message: "Detail categories",
+                message: "Detail Wishlist",
                 results: data
             })
         }
@@ -68,30 +67,29 @@ exports.getOneCategories = async (request, response) => {
                 results: data
             })
         }
-  
+
     } catch (error) {
         console.log(error)
         return errorHandler(response, error)
-  
+
     }
-  
-  
+
+
 }
 
-exports.createCategories = async (request, response) => {
-    console.log(request)
+exports.createWishlist = async (request, response) => {
     try{
-        if(!request.body.name){
+        if(!request.body){
             return response.json({
                 success: false,
                 message: "Required body name",
                 results: ""
             })
         }
-        const categories = await categoriesModel.insert(request.body)
+        const categories = await wishlistModels.insert(request.body)
         return response.json({
             success: true,
-            message: "Creat categories success",
+            message: "Creat Wishlist success",
             results: categories
         })
     }catch(err){
@@ -99,14 +97,13 @@ exports.createCategories = async (request, response) => {
     }
 }
 
-exports.updateCategories = async (request, response) => {
-    // console.log(resultUpdate)
+exports.updateWishlist = async (request, response) => {
     try{
-        const resultUpdate = await categoriesModel.update(request.params.id, request.body)
+        const resultUpdate = await wishlistModels.update(request.params.id, request.body)
         if(resultUpdate){
             return response.json({
                 success: true,
-                message: "Update user sucessfully",
+                message: "Update Wishlist sucessfully",
                 results: resultUpdate
             })
         }
@@ -124,20 +121,20 @@ exports.updateCategories = async (request, response) => {
 }
 
 
-exports.deleteCategories = async (request, response) => {
+exports.deleteWishlist = async (request, response) => {
     try{
-        const resultCategories = await categoriesModel.findOne(request.params.id)
-        if(!resultCategories){
+        const resultWishlist = await wishlistModels.findOne(request.params.id)
+        if(!resultWishlist){
             return response.status(404).json({
                 success: false,
-                message: "Error : Data users not found",
+                message: "Error : Data Wishlist not found",
                 results: ""
             })
         }
-        await categoriesModel.destroy(request.params.id)
+        await wishlistModels.destroy(request.params.id)
         return response.json({
             success: true,
-            message: "Delete user sucessfully",
+            message: "Delete Wishlist sucessfully",
             results : ""
         })
     }

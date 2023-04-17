@@ -47,7 +47,7 @@ exports.insert = async function(data){
 }
 
 exports.update = async function(id, data){
-    console.log(data.picture, "data ini dimana?")
+    // console.log(data.picture, "data ini dimana?")
     const query = `
   UPDATE "profile" 
   SET "picture"=$2, "fullName"=$3, "gender"=$4, "profession"=$5, "nationality"=$6, "birthDate"=$7

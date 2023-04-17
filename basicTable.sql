@@ -94,7 +94,7 @@ CREATE TABLE "reservations" (
     "updateAt" TIMESTAMP DEFAULT NULL
 );
 
-CREATE TABLE "reservationTickets" (
+CREATE TABLE "reservationsTickets" (
     "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     "reservationId" INTEGER,
     "sectionId" INTEGER,

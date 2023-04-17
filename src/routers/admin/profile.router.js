@@ -7,7 +7,7 @@ const uploadMiddleware = require("../../middlewares/upload.middleware")
 // const upload = multer({dest: "upload/"})
 
 profileRouter.get("/", profileController.getAllProfile)
-// profileRouter.get("/:id", profileController.getOneProfile) 
+profileRouter.get("/:id", profileController.getOneProfile) 
 profileRouter.post("/",uploadMiddleware("picture"), profileController.createProfile)
 profileRouter.patch("/:id",uploadMiddleware("picture"), profileController.updateProfile)
 profileRouter.delete("/:id", profileController.deleteProfile )

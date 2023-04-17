@@ -41,6 +41,44 @@ exports.getAllProfile = async (request, response) => {
     }
 }
 
+exports.getOneProfile = async (request, response) => {
+    // console.log("check")
+    try {
+        console.log(parseInt(request.params.id))
+        if(isNaN(request.params.id) && parseInt(request.params.id) !== request.params.id){
+            return response.status(400).json({
+                success:false,
+                message: "Parameter id must be number!"
+            })
+        }
+        const data = await profileModels.findOne(request.params.id)
+        console.log(data)
+        if(data){
+            console.log(data)
+            return response.json({
+                success: true,
+                message: "Detail Profile",
+                results: data
+            })
+        }
+        else{
+            console.log(data)
+            return response.status(404).json({
+                success: false,
+                message: "Error : Data not found",
+                results: data
+            })
+        }
+
+    } catch (error) {
+        console.log(error)
+        return errorHandler(response, error)
+
+    }
+
+
+}
+
 
 exports.createProfile = async (request, response) =>{
     try {
@@ -66,11 +104,11 @@ exports.createProfile = async (request, response) =>{
 
 exports.updateProfile = async (request, response) => {
     try {
-        console.log(request.body)
+        // console.log(request.body)
         const data = {
             ...request.body
         }
-        console.log(request.file, "data contoroler")
+        // console.log(request.file, "data contoroler")
         if (request.file){
             data.picture = request.file.filename
         }

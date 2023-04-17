@@ -1,8 +1,7 @@
 const errorHandler = require("../../helpers/erorHandler.helper")
-const categoriesModel = require("../../models/categories.models")
+const reservationStatus = require("../../models/reservationStatus.models")
 
-exports.getAllCategories = async (request, response) => {
-    console.log(request.query)
+exports.getAllResevationStatus = async (request, response) => {
     try { 
         const sortWhaitlist = ["name"]
         if(request.query.sort && !sortWhaitlist.includes(request.query.sort)){
@@ -20,14 +19,14 @@ exports.getAllCategories = async (request, response) => {
             })
         }
 
-        const data = await categoriesModel.findAllCategories(request.query.page, 
+        const data = await reservationStatus.findAllReservationStatus(request.query.page, 
             request.query.limit, 
             request.query.search,
             request.query.sort,
             request.query.sortBy)
         return response.json({
             success: true,
-            message: "List off all categories",
+            message: "List off all Reservation Status",
             results: data
         })
   
@@ -39,8 +38,7 @@ exports.getAllCategories = async (request, response) => {
     }
 }
 
-
-exports.getOneCategories = async (request, response) => {
+exports.getOneReservationStatus = async (request, response) => {
     // console.log("check")
     try {
         console.log(parseInt(request.params.id))
@@ -50,13 +48,13 @@ exports.getOneCategories = async (request, response) => {
                 message: "Parameter id must be number!"
             })
         }
-        const data = await categoriesModel.findOne(request.params.id)
+        const data = await reservationStatus.findOne(request.params.id)
         console.log(data)
         if(data){
             console.log(data)
             return response.json({
                 success: true,
-                message: "Detail categories",
+                message: "Detail Reservation Status",
                 results: data
             })
         }
@@ -68,17 +66,18 @@ exports.getOneCategories = async (request, response) => {
                 results: data
             })
         }
-  
+
     } catch (error) {
         console.log(error)
         return errorHandler(response, error)
-  
+
     }
-  
-  
+
+
 }
 
-exports.createCategories = async (request, response) => {
+
+exports.createResevationStatus = async (request, response) => {
     console.log(request)
     try{
         if(!request.body.name){
@@ -88,10 +87,10 @@ exports.createCategories = async (request, response) => {
                 results: ""
             })
         }
-        const categories = await categoriesModel.insert(request.body)
+        const categories = await reservationStatus.insert(request.body)
         return response.json({
             success: true,
-            message: "Creat categories success",
+            message: "Creat Reservation Status success",
             results: categories
         })
     }catch(err){
@@ -99,14 +98,14 @@ exports.createCategories = async (request, response) => {
     }
 }
 
-exports.updateCategories = async (request, response) => {
+exports.updateResevationStatus = async (request, response) => {
     // console.log(resultUpdate)
     try{
-        const resultUpdate = await categoriesModel.update(request.params.id, request.body)
+        const resultUpdate = await reservationStatus.update(request.params.id, request.body)
         if(resultUpdate){
             return response.json({
                 success: true,
-                message: "Update user sucessfully",
+                message: "Update Reservation Status sucessfully",
                 results: resultUpdate
             })
         }
@@ -124,20 +123,20 @@ exports.updateCategories = async (request, response) => {
 }
 
 
-exports.deleteCategories = async (request, response) => {
+exports.deleteResevationStatus = async (request, response) => {
     try{
-        const resultCategories = await categoriesModel.findOne(request.params.id)
+        const resultCategories = await reservationStatus.findOne(request.params.id)
         if(!resultCategories){
             return response.status(404).json({
                 success: false,
-                message: "Error : Data users not found",
+                message: "Error : Data Reservation Status not found",
                 results: ""
             })
         }
-        await categoriesModel.destroy(request.params.id)
+        await reservationStatus.destroy(request.params.id)
         return response.json({
             success: true,
-            message: "Delete user sucessfully",
+            message: "Delete Reservation Status sucessfully",
             results : ""
         })
     }
