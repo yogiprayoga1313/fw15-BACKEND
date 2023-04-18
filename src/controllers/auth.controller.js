@@ -1,5 +1,6 @@
 const userModel = require("../models/users.model")
 const profileModels = require ("../models/profile.model")
+const forgotRequsetModels = require ("../models/forgotRequest.models")
 const errorHandler = require("../helpers/erorHandler.helper")
 const jwt = require("jsonwebtoken")
 const { APP_SECRET } = process.env
@@ -52,6 +53,58 @@ exports.register = async (request, response) => {
             results: { token }
         })
     } catch (err) {
+        return errorHandler(response, err)
+    }
+}
+
+exports.forgotPassword = async (request, response) => {
+    try{
+        const {email} = request.body
+        const user = await userModel.findOneByEmail(email)
+        if(!user){
+            throw Error("no_user")
+        }
+        const randomNumber = Math.random()
+        const rounded = Math.round(randomNumber * 100000)
+        const padded = String(rounded).padEnd(6, "0")
+
+        const forgot = await forgotRequsetModels.insert({
+            email: user.email,
+            code: padded
+        })
+        if(!forgot){
+            throw Error ("forget_failed")
+        }
+        return response.json({
+            success : true,
+            message : "Request forgot password success!"
+        })
+    }catch(err){
+        return errorHandler(response, err)
+    }
+}
+
+
+exports.resetPassword =  async (request, response) => {
+    try{
+        const {code, email, password} = request.body
+        const find = await forgotRequsetModels.findOneByCodeAndEmail(code, email)
+        if(!find){
+            throw Error("no_forget_password")
+        }
+        const selectedUser = await userModel.findOneByEmail(email)
+        const data = {
+            password: await argon.hash(password)
+        }
+        const user = await userModel.update(selectedUser.id, data)
+        if(!user){
+            throw Error("no_forget_password")
+        }
+        return response.json({
+            success: true,
+            message: "Reset password Success!"
+        })
+    }catch(err){
         return errorHandler(response, err)
     }
 }

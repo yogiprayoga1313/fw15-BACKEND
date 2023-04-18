@@ -1,7 +1,6 @@
-// const { query } = require("express")
 const db = require ("../helpers/db.helper")
 
-exports.findAllUsers = async function(page, limit, search, sort, sortBy){
+exports.findAll = async function(page, limit, search, sort, sortBy){
     page = parseInt(page) || 1
     limit = parseInt(limit) || 5
     search = search || ""
@@ -11,7 +10,7 @@ exports.findAllUsers = async function(page, limit, search, sort, sortBy){
     const offset = (page - 1) * limit
 
     const query = `
-    SELECT * FROM "users" WHERE "email" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
+    SELECT * FROM "forgotRequest" WHERE "email" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
     `
     const values = [limit, offset,`%${search}%`]
     const {rows} = await db.query(query, values)
@@ -20,7 +19,7 @@ exports.findAllUsers = async function(page, limit, search, sort, sortBy){
 
 exports.findOne = async function(id){
     const query = `
-  SELECT  * FROM "users" WHERE id=$1
+  SELECT  * FROM "forgotRequest" WHERE "id"=$1
   `
     const values = [id]
     const {rows} = await db.query(query, values)
@@ -29,49 +28,60 @@ exports.findOne = async function(id){
 
 exports.findOneByEmail = async function(email){
     const query = `
-SELECT  * FROM "users" WHERE email=$1
+SELECT  * FROM "forgotRequest" WHERE "email"=$1
 `
     const values = [email]
     const {rows} = await db.query(query, values)
     return rows[0]
 }
 
-exports.insert = async function(data){
+exports.findOneByCode = async function(code){
     const query = `
-  INSERT INTO "users" ("email", "password", "username") 
-  VALUES ($1, $2, $3) RETURNING *
+SELECT  * FROM "forgotRequest" WHERE "code"=$1
+`
+    const values = [code]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
+
+exports.findOneByCodeAndEmail = async function(code, email){
+    const query = `
+SELECT  * FROM "forgotRequest" WHERE "code"=$1 AND "email"=$2
+`
+    const values = [code, email]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
+
+exports.insert = async function(data){
+    // console.log(data)
+    const query = `
+  INSERT INTO "forgotRequest" ("email", "code")
+  VALUES ($1, $2) RETURNING *
   `
-    const values = [data.email, data.password, data.username]
+    const values = [data.email, data.code]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
 
 exports.update = async function(id, data){
+    // console.log(data.picture, "data ini dimana?")
     const query = `
-  UPDATE "users" 
-  SET 
-  "email"=COALESCE(NULLIF($2, ''), "email"),
-  "password"=COALESCE(NULLIF($3, ''), "password"), 
-  "username"=COALESCE(NULLIF($4, ''), "username")
+  UPDATE "forgotRequest" 
+  SET "email"=$2, "code"=$3
   WHERE "id"=$1
   RETURNING *
 `
-    const values = [id, data.email, data.password, data.username]
+    const values = [id, data.email, data.code]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
 
 exports.destroy = async function(id){
     const query = `
-  DELETE FROM "users" WHERE "id"=$1
+  DELETE FROM "forgotRequest" WHERE "id"=$1
 `
     const values = [id]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
-
-
-// exports.findEmail = function(){
-//     return db.query("SELECT email FROM users")
-// }
-//  find email

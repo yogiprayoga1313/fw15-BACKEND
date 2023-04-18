@@ -13,6 +13,11 @@ const rules = {
         body("username").isLength({min: 3, max: 80}).withMessage("Name length is invalid"),
         emailFormat,
         strongPassword
+    ],
+    resetPassword:[
+        body("confirmPassword").custom((value, {req}) => {
+            return value === req.body.password
+        }).withMessage("confirm password does not match")
     ]
 }
 
