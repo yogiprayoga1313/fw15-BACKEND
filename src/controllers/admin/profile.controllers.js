@@ -29,7 +29,7 @@ exports.getAllProfile = async (request, response) => {
             request.query.sortBy)
         return response.json({
             success: true,
-            message: "List off all user",
+            message: "List off all Prfile user",
             results: data
         })
     

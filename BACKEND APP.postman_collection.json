@@ -262,7 +262,7 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "test",
+											"value": "Film ",
 											"type": "text"
 										}
 									]
@@ -359,7 +359,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/citites?sortyBy=&sort=&limit&search&page=3",
+									"raw": "{{url}}/admin/citites?sortyBy=&sort=&limit&search&page=2",
 									"host": [
 										"{{url}}"
 									],
@@ -386,7 +386,7 @@
 										},
 										{
 											"key": "page",
-											"value": "3"
+											"value": "2"
 										}
 									]
 								}
@@ -1760,18 +1760,301 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
 						"url": {
-							"raw": "{{url}}/auth/forgotPassword",
+							"raw": "{{url}}/auth/resetPassword",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"auth",
-								"forgotPassword"
+								"resetPassword"
 							]
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "CHANGE PASSWORD",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "oldPassword",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/changePassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MAIN BUSINESS FLOW",
+			"item": [
+				{
+					"name": "PROFILE",
+					"item": [
+						{
+							"name": "EDIT PROFILE",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "fullName",
+											"value": "dewaonlyfans",
+											"type": "text"
+										},
+										{
+											"key": "phoneNumber",
+											"value": "087676767",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "gender",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "profession",
+											"value": "ceo",
+											"type": "text"
+										},
+										{
+											"key": "nationality",
+											"value": "indo",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "birthDate",
+											"value": "1998-01-13",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/photo_6291762613876535946_y.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/profile",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET PROFILE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/profile",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CITITES",
+					"item": [
+						{
+							"name": "GET CITITES",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/citites",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"citites"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CATEGORIES",
+					"item": [
+						{
+							"name": "GET CATEGORIES",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PARTNERS",
+					"item": [
+						{
+							"name": "GET PARTNERS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/partners",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"partners"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "WISHLIST",
+					"item": [
+						{
+							"name": "GET WISHLIST",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EVENTS",
+					"item": [
+						{
+							"name": "GET EVENTS",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET EVENTS DETAIL",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/events/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"events",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE EVENTS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/events",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE EVENTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/events",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"events"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},

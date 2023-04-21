@@ -17,6 +17,35 @@ exports.findAllEvents = async function(page, limit, search, sort, sortBy){
     return rows
 }
 
+exports.findEvents = async function(page, limit, search, sort, sortBy, location, categories){
+    // console.log(location)
+    page = parseInt(page) || 1
+    limit = parseInt(limit) || 5
+    search = search || ""
+    sort = sort || "id"
+    sortBy = sortBy || "ASC"
+    location = location || ""
+    categories = categories || ""
+
+    const offset = (page - 1) * limit
+
+    const query = `
+SELECT e.*, c.name AS cityName, ca.name AS categoriesName FROM "events" e
+INNER JOIN citites c ON c.id = e."cityId"
+INNER JOIN categories ca ON ca.id = e."categoriesId"
+ WHERE 
+"title" LIKE $3
+${location ? `AND c.name LIKE '%${location}%'` : ""}
+${categories ? `AND ca.name LIKE '%${categories}%'` : ""}
+ ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
+`
+// console.log(query)
+    const values = [limit, offset,`%${search}%`]
+    const {rows} = await db.query(query, values)
+    return rows
+}
+
+
 exports.findOne = async function(id){
     const query = `
 SELECT  * FROM "events" WHERE id=$1

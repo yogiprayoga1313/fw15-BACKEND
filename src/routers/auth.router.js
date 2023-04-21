@@ -7,6 +7,8 @@ authRouter.post("/login",validate("authLogin"), authController.login)
 authRouter.post("/register", authController.register)
 authRouter.post("/forgotPassword", authController.forgotPassword)
 authRouter.post("/resetPassword",validate("resetPassword"), authController.resetPassword)
+authRouter.patch("/changePassword", authController.changePassword)
+
 
 
 module.exports = authRouter
