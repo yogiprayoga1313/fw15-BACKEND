@@ -40,9 +40,7 @@ exports.getAllWishlist = async (request, response) => {
 }
 
 exports.getOneWishlist = async (request, response) => {
-    // console.log("check")
     try {
-        // console.log(parseInt(request.params.id))
         if(isNaN(request.params.id) && parseInt(request.params.id) !== request.params.id){
             return response.status(400).json({
                 success:false,
@@ -50,7 +48,6 @@ exports.getOneWishlist = async (request, response) => {
             })
         }
         const data = await wishlistModels.findOne(request.params.id)
-        // console.log(data)
         if(data){
             console.log(data)
             return response.json({

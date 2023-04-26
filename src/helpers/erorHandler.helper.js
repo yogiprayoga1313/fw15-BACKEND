@@ -43,7 +43,7 @@ const errorHandler = (response, err) => {
     if(err?.message?.includes("wrong_credentials")){
         return response.status(401).json({
             success: false,
-            message: "Wrong email or password!"
+            message: "The data you entered is incorrect!"
         })
     }
     if(err?.message?.includes("password_unmatch")){

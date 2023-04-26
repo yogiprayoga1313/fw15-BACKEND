@@ -1,6 +1,6 @@
 const db = require ("../helpers/db.helper")
 
-exports.findAllWishlist = async function(page, limit, search, sort, sortBy){
+exports.findAllWishlist = async function(page, limit, search, sort, sortBy, userId){
     page = parseInt(page) || 1
     limit = parseInt(limit) || 5
     search = search || ""
@@ -10,9 +10,9 @@ exports.findAllWishlist = async function(page, limit, search, sort, sortBy){
     const offset = (page - 1) * limit
 
     const query = `
-  SELECT * FROM "wishlist" WHERE CAST("eventId" AS VARCHAR) LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
+  SELECT * FROM "wishlist" WHERE "userId" = $4 AND CAST("eventId" AS VARCHAR) LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
   `
-    const values = [limit, offset,`%${search}%`]
+    const values = [limit, offset,`%${search}%`, userId]
     const {rows} = await db.query(query, values)
     return rows
 }

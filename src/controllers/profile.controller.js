@@ -6,13 +6,11 @@ exports.updateProfile = async (req, res) => {
     try{
         const {id} = req.user
         const user = await profileModels.findOneByUserId(id)
-        // console.log(user)
         const data = {
             ...req.body
         }
         if(req.file){
             if(user.picture){
-                // console.log(user.picture)
                 fileRemover({filename: user.picture})
             }
             data.picture = req.file.filename

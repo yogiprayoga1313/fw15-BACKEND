@@ -1837,7 +1837,8 @@
 										{
 											"key": "fullName",
 											"value": "dewaonlyfans",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "phoneNumber",
@@ -1854,7 +1855,8 @@
 										{
 											"key": "profession",
 											"value": "ceo",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "nationality",
@@ -1871,7 +1873,8 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/telkomdev/Downloads/photo_6291762613876535946_y.jpg"
+											"src": "/C:/Users/telkomdev/Downloads/photo_6291762613876535946_y.jpg",
+											"disabled": true
 										}
 									]
 								},
@@ -1979,7 +1982,37 @@
 							"name": "GET WISHLIST",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{url}}/wishlist",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wishlist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE WISHLIST",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/events",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"events"
+									]
+								}
 							},
 							"response": []
 						}
@@ -1992,7 +2025,16 @@
 							"name": "GET EVENTS",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{url}}/events",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"events"
+									]
+								}
 							},
 							"response": []
 						},
@@ -2013,7 +2055,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "1"
+											"value": "4"
 										}
 									]
 								}

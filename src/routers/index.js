@@ -18,6 +18,8 @@ router.use("/categories",require("./categories.router"))
 router.use("/partners",require("./partners.router"))
 router.use("/wishlist",require("./wishlist.router"))
 router.use("/events",require("./events.router"))
+router.use("/changePassword",require("./changePassword.router"))
+
 
 router.use("*", (request, response) => {
     return response.status(404).json({
