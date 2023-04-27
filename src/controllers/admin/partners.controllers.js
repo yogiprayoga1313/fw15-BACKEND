@@ -130,7 +130,7 @@ exports.updatePartners = async (request, response) => {
             return response.status(404).json({
                 success: false,
                 message: "Error : Data Partners not found",
-                results: "*"
+                results: ""
             })
         }
     } catch (error) {

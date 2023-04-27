@@ -17,7 +17,7 @@ exports.findAllEvents = async function(page, limit, search, sort, sortBy){
     return rows
 }
 
-exports.findEvents = async function(page, limit, search, sort, sortBy, location, categories){
+exports.findEvents = async function(page, limit, search, sort, sortBy, location, categories,userId){
     // console.log(location)
     page = parseInt(page) || 1
     limit = parseInt(limit) || 5
@@ -33,14 +33,15 @@ exports.findEvents = async function(page, limit, search, sort, sortBy, location,
 SELECT e.*, c.name AS cityName, ca.name AS categoriesName FROM "events" e
 INNER JOIN citites c ON c.id = e."cityId"
 INNER JOIN categories ca ON ca.id = e."categoriesId"
- WHERE 
+INNER JOIN users ui ON e."createdBy" = ui.id
+ WHERE ui.id = $4 AND 
 "title" LIKE $3
 ${location ? `AND c.name LIKE '%${location}%'` : ""}
 ${categories ? `AND ca.name LIKE '%${categories}%'` : ""}
  ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
 `
 // console.log(query)
-    const values = [limit, offset,`%${search}%`]
+    const values = [limit, offset,`%${search}%`, userId]
     const {rows} = await db.query(query, values)
     return rows
 }
@@ -56,12 +57,23 @@ SELECT  * FROM "events" WHERE id=$1
 }
 
 
+exports.findOneByUserid = async function(data){
+    console.log(data)
+    const query = `
+SELECT  * FROM "events" WHERE id=$1 AND "createdBy" = $2
+`
+    const values = [data.id, data.userId]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
+
+
 exports.insert = async function(data){
     const query = `
-INSERT INTO "events" ("picture", "title", "date", "cityId", "descriptions") 
-VALUES ($1, $2, $3, $4, $5) RETURNING *
+INSERT INTO "events" ("picture", "title", "date", "cityId", "descriptions", "createdBy", "categoriesId") 
+VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *
 `
-    const values = [data.picture, data.title, data.date, data.cityId, data.descriptions]
+    const values = [data.picture, data.title, data.date, data.cityId, data.descriptions, data.userId, data.categoriesId]
     const {rows} = await db.query(query, values)
     return rows [0]
 }

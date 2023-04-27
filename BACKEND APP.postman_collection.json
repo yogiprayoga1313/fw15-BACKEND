@@ -3,7 +3,8 @@
 		"_postman_id": "8c82d9fc-d509-49b9-b9f6-f7c92ac82d91",
 		"name": "BACKEND APP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26802409"
+		"_exporter_id": "26802409",
+		"_collection_link": "https://martian-meadow-622170.postman.co/workspace/Team-Workspace~beb8ef16-2ff9-40cb-8687-e097e78932a6/collection/26802409-8c82d9fc-d509-49b9-b9f6-f7c92ac82d91?action=share&creator=26802409&source=collection_link"
 	},
 	"item": [
 		{
@@ -1661,7 +1662,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "newacc@mail.com",
+									"value": "newacc1@mail.com",
 									"type": "text"
 								},
 								{
@@ -1694,12 +1695,12 @@
 							"urlencoded": [
 								{
 									"key": "fullName",
-									"value": "newacc",
+									"value": "newacc 1",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "newacc@mail.com",
+									"value": "newacc1@mail.com",
 									"type": "text"
 								},
 								{
@@ -1776,43 +1777,87 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "PROFILE",
+			"item": [
 				{
-					"name": "CHANGE PASSWORD",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {}
-					},
+					"name": "EDIT PROFILE",
 					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
-									"key": "oldPassword",
-									"value": "12345",
-									"type": "text"
+									"key": "fullName",
+									"value": "dewaonlyfans",
+									"type": "text",
+									"disabled": true
 								},
 								{
-									"key": "newPassword",
-									"value": "123",
-									"type": "text"
+									"key": "phoneNumber",
+									"value": "087676767",
+									"type": "text",
+									"disabled": true
 								},
 								{
-									"key": "confirmPassword",
-									"value": "123",
-									"type": "text"
+									"key": "gender",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "profession",
+									"value": "ceo",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nationality",
+									"value": "indo",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "birthDate",
+									"value": "1998-01-13",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "/C:/Users/telkomdev/Downloads/How Much to Tip for Pizza Delivery_.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/auth/changePassword",
+							"raw": "{{url}}/profile",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"auth",
-								"changePassword"
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PROFILE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile"
 							]
 						}
 					},
@@ -1823,92 +1868,6 @@
 		{
 			"name": "MAIN BUSINESS FLOW",
 			"item": [
-				{
-					"name": "PROFILE",
-					"item": [
-						{
-							"name": "EDIT PROFILE",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "fullName",
-											"value": "dewaonlyfans",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "phoneNumber",
-											"value": "087676767",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "gender",
-											"value": "1",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "profession",
-											"value": "ceo",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "nationality",
-											"value": "indo",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "birthDate",
-											"value": "1998-01-13",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "picture",
-											"type": "file",
-											"src": "/C:/Users/telkomdev/Downloads/photo_6291762613876535946_y.jpg",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/profile",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"profile"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET PROFILE",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/profile",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"profile"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
 				{
 					"name": "CITITES",
 					"item": [
@@ -2002,15 +1961,21 @@
 								"header": [],
 								"body": {
 									"mode": "urlencoded",
-									"urlencoded": []
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "2",
+											"type": "text"
+										}
+									]
 								},
 								"url": {
-									"raw": "{{url}}/events",
+									"raw": "{{url}}/wishlist",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"events"
+										"wishlist"
 									]
 								}
 							},
@@ -2023,16 +1988,33 @@
 					"item": [
 						{
 							"name": "GET EVENTS",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
 								"url": {
-									"raw": "{{url}}/events",
+									"raw": "{{url}}/events?limit=&sortBy=desc",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"events"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": ""
+										},
+										{
+											"key": "sortBy",
+											"value": "desc"
+										}
 									]
 								}
 							},
@@ -2055,7 +2037,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "4"
+											"value": "15"
 										}
 									]
 								}
@@ -2067,6 +2049,41 @@
 							"request": {
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/Kaaba, Mekka, Saudi Arabia.jpg"
+										},
+										{
+											"key": "title",
+											"value": "Expo",
+											"type": "text"
+										},
+										{
+											"key": "date",
+											"value": "2022-03-13",
+											"type": "text"
+										},
+										{
+											"key": "cityId",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "descriptions",
+											"value": "hoyeahhhhh",
+											"type": "text"
+										},
+										{
+											"key": "categoriesId",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
 								"url": {
 									"raw": "{{url}}/events",
 									"host": [
@@ -2082,15 +2099,102 @@
 						{
 							"name": "UPDATE EVENTS",
 							"request": {
-								"method": "GET",
+								"method": "PATCH",
 								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/telkomdev/Downloads/WhatsApp Image 2023-03-06 at 4.23.25 PM.jpeg"
+										},
+										{
+											"key": "title",
+											"value": "IDE",
+											"type": "text"
+										},
+										{
+											"key": "date",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "cityId",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "descriptions",
+											"value": "jiabngssssss",
+											"type": "text"
+										},
+										{
+											"key": "categoriesId",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
 								"url": {
-									"raw": "{{url}}/events",
+									"raw": "{{url}}/events/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"events"
+										"events",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CHANGE PASSWORD",
+					"item": [
+						{
+							"name": "CHANGE PASSWORD",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "oldPassword",
+											"value": "123",
+											"type": "text"
+										},
+										{
+											"key": "newPassword",
+											"value": "123",
+											"type": "text"
+										},
+										{
+											"key": "confirmPassword",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/changePassword",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"changePassword"
 									]
 								}
 							},

@@ -6,7 +6,6 @@ const eventsModel = require ("../models/events.models")
 
 
 exports.getWishlist = async (request, response) => {
-    // console.log(request.query)
     try { 
         if(!request.headers.authorization){
             throw Error("Unauthorized!")
@@ -14,7 +13,6 @@ exports.getWishlist = async (request, response) => {
         const bearer = request.headers.authorization.split(" ")[1]
         const bearerDecode = jwt_decode(bearer)
         const userData = await userModel.findOne(bearerDecode.id)
-        console.log(userData, bearerDecode)
         if(!userData){
             throw Error("User Not found!")
         }
@@ -62,7 +60,6 @@ exports.createWishlist = async (request, response) => {
         const bearer = request.headers.authorization.split(" ")[1]
         const bearerDecode = jwt_decode(bearer)
         const userData = await userModel.findOne(bearerDecode.id)
-        console.log(userData, bearerDecode)
         if(!userData){
             throw Error("User Not found!")
         }

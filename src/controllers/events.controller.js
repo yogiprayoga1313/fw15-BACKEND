@@ -1,10 +1,22 @@
 const eventsModels = require("../../src/models/events.models")
 const errorHandler = require("../../src/helpers/erorHandler.helper")
+const jwt_decode = require("jwt-decode")
+const userModel = require ("../models/users.model")
 
 
 exports.getEvents = async (request, response) => {
     console.log(request.query)
-    try { 
+    try {
+        if(!request.headers.authorization){
+            throw Error("Unauthorized!")
+        }
+        const bearer = request.headers.authorization.split(" ")[1]
+        const bearerDecode = jwt_decode(bearer)
+        const userData = await userModel.findOne(bearerDecode.id)
+        console.log(userData, bearerDecode)
+        if(!userData){
+            throw Error("User Not found!")
+        }
         const sortWhaitlist = ["name"]
         if(request.query.sort && !sortWhaitlist.includes(request.query.sort)){
             return response.status(400).json({
@@ -27,7 +39,8 @@ exports.getEvents = async (request, response) => {
             request.query.sort,
             request.query.sortBy,
             request.query.location,
-            request.query.categories)
+            request.query.categories,
+            userData.id)
         return response.json({
             success: true,
             message: "List off events",
@@ -83,6 +96,16 @@ exports.getOneEvents = async (request, response) => {
 
 exports.createEvents = async (request, response) => {
     try{
+        if(!request.headers.authorization){
+            throw Error("Unauthorized!")
+        }
+        const bearer = request.headers.authorization.split(" ")[1]
+        const bearerDecode = jwt_decode(bearer)
+        const userData = await userModel.findOne(bearerDecode.id)
+        if(!userData){
+            throw Error("User Not found!")
+        }
+        console.log(request.body)
         if(!request.body.title){
             return response.json({
                 success: false,
@@ -90,8 +113,10 @@ exports.createEvents = async (request, response) => {
                 results: ""
             })
         }
+
         const data = {
-            ...request.body
+            ...request.body,
+            userId:userData.id
         }
         if(request.file){
             data.picture = request.file.filename
@@ -109,10 +134,36 @@ exports.createEvents = async (request, response) => {
 
 exports.updateEvents = async (request, response) => {
     try {
-        const data = {
-            ...request.body
+        if(!request.headers.authorization){
+            throw Error("Unauthorized!")
         }
-        console.log(data.picture, "data controller")
+        const bearer = request.headers.authorization.split(" ")[1]
+        const bearerDecode = jwt_decode(bearer)
+        const userData = await userModel.findOne(bearerDecode.id)
+        if(!userData){
+            throw Error("User Not found!")
+        }
+        // console.log(data.picture, "data controller")
+        const findEvents = await eventsModels.findOneByUserid({
+            id:request.params.id,
+            userId:userData.id
+        })
+        console.log(findEvents)
+        if(!findEvents){
+            return response.status(404).json({
+                success:false,
+                message: "Events not Found!"
+            })
+        }
+        const data = {
+            picture:findEvents.picture,
+            title:request.body.title?? findEvents.title,
+            date:request.body.date?? findEvents.date,
+            descriptions:request.body.descriptions?? findEvents.descriptions,
+            categoriesId:request.body.categoriesId?? findEvents.descriptions,
+            cityId:request.body.cityId?? findEvents.cityId
+        }
+        // console.log(data)
         if(request.file){
             data.picture = request.file.filename
         }
