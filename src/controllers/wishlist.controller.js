@@ -82,11 +82,11 @@ exports.createWishlist = async (request, response) => {
             ...request.body,
             userId:userData.id
         }
-        const categories = await wishlistModels.insert(payload)
+        const wishlist = await wishlistModels.insert(payload)
         return response.json({
             success: true,
             message: "Creat Wishlist success",
-            results: categories
+            results: wishlist
         })
     }catch(err){
         return errorHandler(response, err) 

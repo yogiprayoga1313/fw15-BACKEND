@@ -5,7 +5,7 @@ const eventsControllers = require("../controllers/events.controller" )
 
 eventsRouter.get("/", eventsControllers.getEvents)
 eventsRouter.get("/:id", eventsControllers.getOneEvents)
-eventsRouter.post("/",uploadMiddleware("picture"), eventsControllers.createEvents)
-eventsRouter.patch("/:id",uploadMiddleware("picture"),eventsControllers.updateEvents)
+eventsRouter.post("/manage",uploadMiddleware("picture"), eventsControllers.createEvents)
+eventsRouter.patch("/manage/:id",uploadMiddleware("picture"),eventsControllers.updateEvents)
 
 module.exports = eventsRouter

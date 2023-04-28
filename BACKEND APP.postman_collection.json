@@ -1830,7 +1830,8 @@
 								{
 									"key": "picture",
 									"type": "file",
-									"src": "/C:/Users/telkomdev/Downloads/How Much to Tip for Pizza Delivery_.jpg"
+									"src": "/C:/Users/telkomdev/Downloads/How Much to Tip for Pizza Delivery_.jpg",
+									"disabled": true
 								}
 							]
 						},
@@ -2201,6 +2202,38 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "RESERVATION",
+					"item": [
+						{
+							"name": "CREATE RESERVATION",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "eventId",
+											"value": "8",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/reservations",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"reservations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -2261,6 +2294,12 @@
 			"key": "url",
 			"value": "http://localhost:8888",
 			"type": "default"
+		},
+		{
+			"key": "url",
+			"value": "https://lime-frail-crow.cyclic.app",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
