@@ -80,12 +80,8 @@ exports.getOneReservationSection = async (request, response) => {
 exports.createReservationSection = async (request, response) => {
     console.log(request)
     try{
-        if(!request.body.name){
-            return response.json({
-                success: false,
-                message: "Required body name",
-                results: ""
-            })
+        if(!request.body.name || !request.body.price){
+            throw Error("invalid_data")
         }
         const categories = await reservationSectionModel.insert(request.body)
         return response.json({
@@ -101,6 +97,7 @@ exports.createReservationSection = async (request, response) => {
 exports.updateReservationSection = async (request, response) => {
     // console.log(resultUpdate)
     try{
+      
         const resultUpdate = await reservationSectionModel.update(request.params.id, request.body)
         if(resultUpdate){
             return response.json({

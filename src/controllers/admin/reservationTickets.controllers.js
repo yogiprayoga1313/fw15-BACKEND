@@ -80,12 +80,8 @@ exports.getOneReservationTickets = async (request, response) => {
 exports.createReservationsTickets = async (request, response) => {
     // console.log(request)
     try{
-        if(!request.body){
-            return response.json({
-                success: false,
-                message: "Required body name",
-                results: ""
-            })
+        if(!request.body.reservationId || !request.body.sectionId || !request.body.quantity){
+            throw Error("invalid_data")
         }
         const reservationsTickets = await reservationsTicketsModels.insert(request.body)
         return response.json({

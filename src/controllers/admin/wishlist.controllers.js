@@ -19,12 +19,13 @@ exports.getAllWishlist = async (request, response) => {
                 message:`Please choose one of the following sorting options:  ${sortByWhaitlist.join(",")}`
             })
         }
-
-        const data = await wishlistModels.findAllWishlist(request.query.page, 
+        
+        const data = await wishlistModels.findAllWishlistAdmin(request.query.page, 
             request.query.limit, 
             request.query.search,
             request.query.sort,
-            request.query.sortBy)
+            request.query.sortBy,
+        )
         return response.json({
             success: true,
             message: "List off all Wishlist",
@@ -76,18 +77,18 @@ exports.getOneWishlist = async (request, response) => {
 
 exports.createWishlist = async (request, response) => {
     try{
-        if(!request.body){
-            return response.json({
-                success: false,
-                message: "Required body name",
-                results: ""
-            })
+        if(!request.body.eventId || !request.body.userId){
+            throw Error("invalid_data")
         }
-        const categories = await wishlistModels.insert(request.body)
+        console.log(request.body)
+        const data = {
+            ...request.body
+        }
+        const wishlist = await wishlistModels.insert(data)
         return response.json({
             success: true,
             message: "Creat Wishlist success",
-            results: categories
+            results: wishlist
         })
     }catch(err){
         return errorHandler(response, err) 
@@ -96,6 +97,12 @@ exports.createWishlist = async (request, response) => {
 
 exports.updateWishlist = async (request, response) => {
     try{
+        if(!request.params.id){
+            return response.status(404).json({
+                success:false,
+                message:"Id cannot be empty!"
+            })
+        }
         const resultUpdate = await wishlistModels.update(request.params.id, request.body)
         if(resultUpdate){
             return response.json({

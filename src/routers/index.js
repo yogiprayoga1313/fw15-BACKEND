@@ -20,6 +20,8 @@ router.use("/wishlist",require("./wishlist.router"))
 router.use("/events",require("./events.router"))
 router.use("/changePassword",require("./changePassword.router"))
 router.use("/reservations",require("./reservations.router"))
+router.use("/payment",require("./payment.router"))
+
 
 
 router.use("*", (request, response) => {

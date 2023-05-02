@@ -48,6 +48,18 @@ RETURNING *
     return rows [0]
 }
 
+exports.updatePaymentStatus = async function(data){
+    const query = `
+UPDATE "reservations" 
+SET "statusId"=$2, "paymentMethodId"=$3
+WHERE "id"=$1 AND "userId" = $4
+RETURNING *
+`
+    const values = [data.reservationId, data.statusId, data.paymentMethodId, data.userId]
+    const {rows} = await db.query(query, values)
+    return rows [0]
+}
+
 exports.destroy = async function(id){
     const query = `
 DELETE FROM "paymentMethod" WHERE "id"=$1

@@ -43,7 +43,7 @@ exports.getEvents = async (request, response) => {
             userData.id)
         return response.json({
             success: true,
-            message: "List off events",
+            message: "List of events",
             results: data
         })
 
@@ -96,6 +96,18 @@ exports.getOneEvents = async (request, response) => {
 
 exports.createEvents = async (request, response) => {
     try{
+        if(!request.file ||
+          !request.body.title ||
+          !request.body.date ||
+          !request.body.cityId ||
+          !request.body.descriptions ||
+          !request.body.categoriesId){
+            return response.json({
+                success: false,
+                message: "Data cannot be empty!",
+                results: ""
+            })
+        }
         if(!request.headers.authorization){
             throw Error("Unauthorized!")
         }
@@ -105,15 +117,6 @@ exports.createEvents = async (request, response) => {
         if(!userData){
             throw Error("User Not found!")
         }
-        console.log(request.body)
-        if(!request.body.title){
-            return response.json({
-                success: false,
-                message: "Required body title",
-                results: ""
-            })
-        }
-
         const data = {
             ...request.body,
             userId:userData.id
@@ -121,11 +124,11 @@ exports.createEvents = async (request, response) => {
         if(request.file){
             data.picture = request.file.filename
         }
-        const citites = await eventsModels.insert(data)
+        const events = await eventsModels.insert(data)
         return response.json({
             success: true,
             message: "Create events success",
-            results: citites
+            results: events
         })
     }catch(err){
         return errorHandler(response, err) 
@@ -134,6 +137,12 @@ exports.createEvents = async (request, response) => {
 
 exports.updateEvents = async (request, response) => {
     try {
+        if(!request.params.id){
+            return response.status(400).json({
+                success: false,
+                message: "Id cannot be empty!"
+            })
+        }
         if(!request.headers.authorization){
             throw Error("Unauthorized!")
         }

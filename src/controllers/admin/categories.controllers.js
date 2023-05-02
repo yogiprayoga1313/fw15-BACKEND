@@ -82,9 +82,9 @@ exports.createCategories = async (request, response) => {
     console.log(request)
     try{
         if(!request.body.name){
-            return response.json({
+            return response.status(404).json({
                 success: false,
-                message: "Required body name",
+                message: "Data cannot be empty!",
                 results: ""
             })
         }
@@ -100,8 +100,11 @@ exports.createCategories = async (request, response) => {
 }
 
 exports.updateCategories = async (request, response) => {
-    // console.log(resultUpdate)
+    // console.log(request.params.id)
     try{
+        if(!request.params.id || isNaN(request.params.id)){
+            throw Error("id_empty")
+        }
         const resultUpdate = await categoriesModel.update(request.params.id, request.body)
         if(resultUpdate){
             return response.json({

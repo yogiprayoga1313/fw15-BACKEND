@@ -82,10 +82,19 @@ exports.getOneProfile = async (request, response) => {
 
 exports.createProfile = async (request, response) =>{
     try {
+        if(!request.file ||
+          !request.body.fullName ||
+          !request.body.phoneNumber ||
+          !request.body.gender ||
+          !request.body.profession ||
+          !request.body.nationality ||
+          !request.body.birthDate){
+            throw Error("invalid_data")
+        }
         const data = {
             ...request.body
         }
-        console.log(request.file)
+        // console.log(request.file)
         if (request.file){
             data.picture = request.file.filename
         }
@@ -104,8 +113,10 @@ exports.createProfile = async (request, response) =>{
 
 exports.updateProfile = async (request, response) => {
     try {
+        if(isNaN(request.params.id) && parseInt(request.params.id) !== request.params.id){
+            throw Error("id_empty")
+        }
         const resultDataProfile = await profileModels.findOneById(request.params.id)
-        console.log(resultDataProfile)
         if(!resultDataProfile){
             return response.status(400).json({
                 success: false,
@@ -156,7 +167,7 @@ exports.deleteProfile = async (request, response) => {
             })
         }
         console.log(resultsUser)
-        console.log(request.params.id)
+        // console.log(request.params.id)
         await profileModels.destroy(request.params.id)
         return response.json({
             success: true,

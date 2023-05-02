@@ -48,6 +48,7 @@ RETURNING *
     return rows [0]
 }
 
+
 exports.destroy = async function(id){
     const query = `
 DELETE FROM "reservations" WHERE "id"=$1

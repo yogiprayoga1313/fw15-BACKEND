@@ -84,6 +84,11 @@ exports.getOneUser = async (request, response) => {
 
 exports.createUsers = async (request, response) =>{
     try {
+        if(!request.body.user ||
+          !request.body.username ||
+          !request.body.password){
+            throw Error("invalid_data")
+        }
         const hash = await argon.hash(request.body.password)
         const data = {
             ...request.body,

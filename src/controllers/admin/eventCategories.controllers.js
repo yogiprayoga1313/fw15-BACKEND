@@ -78,16 +78,15 @@ exports.getOneEventsCategories = async (request, response) => {
 }
 
 exports.createEventCategories = async (request, response) => {
-    // console.log(request)
     try{
-        if(!request.body.eventId){
-            return response.json({
-                success: false,
-                message: "Required body Event Id",
-                results: ""
-            })
+        console.log(request.body.eventId, request.body.categoryId)
+        if(!request.body.eventId || !request.body.categoryId){
+            throw Error("invalid_data")
         }
-        const categories = await eventCategoriesModels.insert(request.body)
+        const data = {
+            ...request.body
+        }
+        const categories = await eventCategoriesModels.insert(data)
         return response.json({
             success: true,
             message: "Creat Event Categories success",
@@ -101,7 +100,16 @@ exports.createEventCategories = async (request, response) => {
 exports.updateEventCategories = async (request, response) => {
     // console.log(resultUpdate)
     try{
-        const resultUpdate = await eventCategoriesModels.update(request.params.id, request.body)
+        if(isNaN(request.params.id) && parseInt(request.params.id) !== request.params.id){
+            throw Error ("id_empty")
+        }
+        if(!request.body.eventId || !request.body.categoryId){
+            throw Error("invalid_data")
+        }
+        const data = {
+            ...request.body
+        }
+        const resultUpdate = await eventCategoriesModels.update(request.params.id, data)
         if(resultUpdate){
             return response.json({
                 success: true,

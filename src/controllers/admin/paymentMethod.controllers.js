@@ -79,11 +79,7 @@ exports.getOnePaymentMethod = async (request, response) => {
 exports.createPaymentMethod = async (request, response) => {
     try{
         if(!request.body.name){
-            return response.json({
-                success: false,
-                message: "Required body name",
-                results: ""
-            })
+            throw Error("invalid_data")
         }
         const categories = await paymentMethodModels.insert(request.body)
         return response.json({

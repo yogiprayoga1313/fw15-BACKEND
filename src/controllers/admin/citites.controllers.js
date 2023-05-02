@@ -81,13 +81,12 @@ exports.getOneCitites = async (request, response) => {
 
 
 exports.createCitites = async (request, response) => {
-    // console.log(request)
+    console.log(request.body.data)
     try{
-        if(!request.body.name){
-            return response.json({
+        if(!request.body.name || !request.file){
+            return response.status(404).json({
                 success: false,
-                message: "Required body name",
-                results: ""
+                message: "Data cannot be empty!"
             })
         }
         const data = {
@@ -109,6 +108,9 @@ exports.createCitites = async (request, response) => {
 
 exports.updateCitites = async (request, response) => {
     try {
+        if(!request.params.id || isNaN(request.params.id)){
+            throw Error("id_empty")
+        }
         const data = {
             ...request.body
         }

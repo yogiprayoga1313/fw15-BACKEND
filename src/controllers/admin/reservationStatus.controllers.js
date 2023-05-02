@@ -81,11 +81,7 @@ exports.createResevationStatus = async (request, response) => {
     console.log(request)
     try{
         if(!request.body.name){
-            return response.json({
-                success: false,
-                message: "Required body name",
-                results: ""
-            })
+            throw Error("invalid_data")
         }
         const categories = await reservationStatus.insert(request.body)
         return response.json({

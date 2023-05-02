@@ -80,12 +80,11 @@ exports.getOneReservation = async (request, response) => {
 exports.createReservations = async (request, response) => {
     // console.log(request)
     try{
-        if(!request.body){
-            return response.json({
-                success: false,
-                message: "Required body name",
-                results: ""
-            })
+        if(!request.body.eventId ||
+          !request.body.userId ||
+          !request.body.statusId ||
+          !request.body.paymentMethodId ){
+            throw Error("invalid_data")
         }
         const categories = await reservationsModels.insert(request.body)
         return response.json({

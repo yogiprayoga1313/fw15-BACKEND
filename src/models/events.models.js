@@ -18,7 +18,7 @@ exports.findAllEvents = async function(page, limit, search, sort, sortBy){
 }
 
 exports.findEvents = async function(page, limit, search, sort, sortBy, location, categories,userId){
-    // console.log(location)
+    // console.log(page, limit, search, sort, sortBy, location, categories,userId)
     page = parseInt(page) || 1
     limit = parseInt(limit) || 5
     search = search || ""

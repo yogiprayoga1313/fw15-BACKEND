@@ -83,12 +83,8 @@ exports.getOneEvents = async (request, response) => {
 
 exports.createEvents = async (request, response) => {
     try{
-        if(!request.body.title){
-            return response.json({
-                success: false,
-                message: "Required body name",
-                results: ""
-            })
+        if(!request.file || !request.body.name){
+            throw Error("invalid_data")
         }
         const data = {
             ...request.body
@@ -109,6 +105,12 @@ exports.createEvents = async (request, response) => {
 
 exports.updateEvents = async (request, response) => {
     try {
+        if(!request.params.id || isNaN(request.params.id)){
+            throw Error("id_empty")
+        }
+        if(isNaN(request.body.data)){
+            throw Error("invalid_data")
+        }
         const data = {
             ...request.body
         }

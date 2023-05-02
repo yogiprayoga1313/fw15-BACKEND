@@ -34,6 +34,42 @@ const errorHandler = (response, err) => {
             message: "Error : Name cannot be empty!",
         })
     }
+
+    if(err?.message?.includes("id_empty")){
+        return response.status(404).json({
+            success: false,
+            message: "Id cannot be empty!"
+        })
+    }
+
+    if(err?.message?.includes("invalid_data")){
+        return response.status(400).json({
+            success: false,
+            message: "Form Data cannot be empty!"
+        })
+    }
+
+    if(err?.message?.includes("paymentMethod_invalid")){
+        return response.status(400).json({
+            success: false,
+            message: "Invalid data paymentMethod",
+        })
+    }
+
+    if(err?.message?.includes("StatusId_invalid")){
+        return response.status(400).json({
+            success: false,
+            message: "Invalid data reservationStatus",
+        })
+    }
+
+    if(err?.message?.includes("reservation_Invalid")){
+        return response.status(400).json({
+            success: false,
+            message: "Invalid data Reservation",
+        })
+    }
+
     if(err?.message?.includes("empty_field")){
         return response.status(400).json({
             success: false,

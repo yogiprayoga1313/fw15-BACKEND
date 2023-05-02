@@ -83,11 +83,10 @@ exports.getOnePartners = async (request, response) => {
 exports.createPartners = async (request, response) => {
     // console.log(request)
     try{
-        if(!request.body.name){
-            return response.json({
+        if(!request.file || !request.body.name){
+            return response.status(404).json({
                 success: false,
-                message: "Required body name",
-                results: ""
+                message: "Data cannot be empty!"
             })
         }
         const data = {
@@ -96,11 +95,11 @@ exports.createPartners = async (request, response) => {
         if(request.file){
             data.picture = request.file.filename
         }
-        const citites = await partnersModels.insert(data)
+        const partners = await partnersModels.insert(data)
         return response.json({
             success: true,
             message: "Create Partners success",
-            results: citites
+            results: partners
         })
     }catch(err){
         return errorHandler(response, err) 
@@ -109,6 +108,9 @@ exports.createPartners = async (request, response) => {
 
 exports.updatePartners = async (request, response) => {
     try {
+        if(!request.params.id || isNaN(request.params.id)){
+            throw Error("id_empty")
+        }
         const data = {
             ...request.body
         }

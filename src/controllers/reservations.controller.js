@@ -7,6 +7,12 @@ const jwt_decode = require("jwt-decode")
 
 exports.createReservation = async (request, response) => {
     try{
+        if(!request.body.eventId){
+            return response.status(400).json({
+                success: false,
+                message:"Data cannot be empty!"
+            })
+        }
         if(!request.headers.authorization){
             throw Error("Unauthorized!")
         }
@@ -22,9 +28,7 @@ exports.createReservation = async (request, response) => {
             ...request.body,
             userId:userData.id,
         }
-        console.log(request.body)
         const eventsResults = await eventsModels.findOne(payload.eventId)
-        console.log(eventsResults)
         if(!eventsResults){
             return response.status(404).json({
                 sucess: false,

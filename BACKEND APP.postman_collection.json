@@ -72,17 +72,10 @@
 										"users",
 										":id"
 									],
-									"query": [
-										{
-											"key": "asdasd",
-											"value": "sadad",
-											"disabled": true
-										}
-									],
 									"variable": [
 										{
 											"key": "id",
-											"value": null
+											"value": "1"
 										}
 									]
 								}
@@ -99,7 +92,7 @@
 									"urlencoded": [
 										{
 											"key": "email",
-											"value": "newacc1@mail.com",
+											"value": "",
 											"type": "text"
 										},
 										{
@@ -263,7 +256,7 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Film ",
+											"value": "",
 											"type": "text"
 										}
 									]
@@ -309,7 +302,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "3"
+											"value": "200"
 										}
 									]
 								}
@@ -404,13 +397,13 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "cimanggu",
+											"value": "asu",
 											"type": "text"
 										},
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/telkomdev/Downloads/photo_6291762613876535946_y.jpg"
+											"src": "/C:/Users/telkomdev/Downloads/jakarta.jpeg"
 										}
 									]
 								},
@@ -460,7 +453,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "19"
+											"value": null
 										}
 									]
 								}
@@ -516,7 +509,7 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/telkomdev/Downloads/photo_6226501925843612395_y.jpg"
+											"src": []
 										},
 										{
 											"key": "fullName",
@@ -705,26 +698,26 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/telkomdev/Downloads/How Much to Tip for Pizza Delivery_.jpg"
+											"src": "/C:/Users/telkomdev/Downloads/semarang.jpg"
 										},
 										{
 											"key": "title",
-											"value": "evnets 2",
+											"value": "",
 											"type": "text"
 										},
 										{
 											"key": "date",
-											"value": "2023-01-01",
+											"value": "2003-04-30",
 											"type": "text"
 										},
 										{
 											"key": "cityId",
-											"value": "1223123232",
+											"value": "",
 											"type": "text"
 										},
 										{
 											"key": "descriptions",
-											"value": "ahjdadjkadahdjadma",
+											"value": "",
 											"type": "text"
 										}
 									]
@@ -777,7 +770,7 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": []
+											"src": "/C:/Users/telkomdev/Downloads/solo.jpg"
 										},
 										{
 											"key": "titile",
@@ -814,7 +807,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": null
+											"value": "2"
 										}
 									]
 								}
@@ -850,7 +843,24 @@
 							"name": "GET DETAIL EVENTS",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/events/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
 							},
 							"response": []
 						}
@@ -869,12 +879,12 @@
 									"urlencoded": [
 										{
 											"key": "eventId",
-											"value": "imlek",
+											"value": "",
 											"type": "text"
 										},
 										{
 											"key": "categoryId",
-											"value": "2023",
+											"value": "",
 											"type": "text"
 										}
 									]
@@ -896,7 +906,17 @@
 							"name": "GET ALL EVENT CATEGORIES",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/eventCategories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"eventCategories"
+									]
+								}
 							},
 							"response": []
 						},
@@ -904,15 +924,64 @@
 							"name": "UPDATE EVENT CATEGORIES",
 							"request": {
 								"method": "PATCH",
-								"header": []
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "categoryId",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/eventCategories/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"eventCategories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
 							},
 							"response": []
 						},
 						{
 							"name": "DELETE EVENT CATEGORIES",
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/eventCategories/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"eventCategories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
 							},
 							"response": []
 						},
@@ -940,11 +1009,11 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/telkomdev/Downloads/WhatsApp Image 2023-03-10 at 9.55.15 PM.jpeg"
+											"src": "/C:/Users/telkomdev/Downloads/semarang.jpg"
 										},
 										{
 											"key": "name",
-											"value": "binance",
+											"value": "dd",
 											"type": "text"
 										}
 									]
@@ -984,7 +1053,39 @@
 							"name": "UPDATE PARTNERS",
 							"request": {
 								"method": "PATCH",
-								"header": []
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "name",
+											"value": "sui",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/partners/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"partners",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "8"
+										}
+									]
+								}
 							},
 							"response": []
 						},
@@ -1199,7 +1300,7 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "not present",
+											"value": "pending",
 											"type": "text"
 										}
 									]
@@ -1300,7 +1401,7 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Credit Card",
+											"value": "online",
 											"type": "text"
 										}
 									]
@@ -1419,14 +1520,39 @@
 							"request": {
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "statusId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "paymentMethodId",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
 								"url": {
-									"raw": "{{url}}/admin/reservation",
+									"raw": "{{url}}/admin/reservations",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
-										"reservation"
+										"reservations"
 									]
 								}
 							},
@@ -1609,7 +1735,32 @@
 							"name": "CREATE WISHLIST",
 							"request": {
 								"method": "POST",
-								"header": []
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "eventId",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/wishlist",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"wishlist"
+									]
+								}
 							},
 							"response": []
 						},
@@ -1617,7 +1768,23 @@
 							"name": "GET ALL WISHLIST",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/wishlist?page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"wishlist"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
 							},
 							"response": []
 						},
@@ -1625,7 +1792,39 @@
 							"name": "UPDATE WISHLIST",
 							"request": {
 								"method": "PATCH",
-								"header": []
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/wishlist/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"wishlist",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
 							},
 							"response": []
 						},
@@ -1662,12 +1861,12 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "newacc1@mail.com",
+									"value": "yogiprayoga123@mail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "12345",
+									"value": "123",
 									"type": "text"
 								}
 							]
@@ -1695,22 +1894,22 @@
 							"urlencoded": [
 								{
 									"key": "fullName",
-									"value": "newacc 1",
+									"value": "yogi prayoga",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "newacc1@mail.com",
+									"value": "yogiprayoga123@mail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "12345",
+									"value": "1234",
 									"type": "text"
 								},
 								{
 									"key": "confirmPassword",
-									"value": "12345",
+									"value": "1234",
 									"type": "text"
 								}
 							]
@@ -1738,7 +1937,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "newacc@mail.com",
+									"value": "yogiprayoga123@mail.com",
 									"type": "text"
 								}
 							]
@@ -1762,8 +1961,29 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": []
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "code",
+									"value": "473930",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "yogiprayoga123@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "12345",
+									"type": "text"
+								}
+							]
 						},
 						"url": {
 							"raw": "{{url}}/auth/resetPassword",
@@ -1793,45 +2013,38 @@
 							"formdata": [
 								{
 									"key": "fullName",
-									"value": "dewaonlyfans",
-									"type": "text",
-									"disabled": true
+									"value": "dewaonly",
+									"type": "text"
 								},
 								{
 									"key": "phoneNumber",
-									"value": "087676767",
-									"type": "text",
-									"disabled": true
+									"value": "0813273330099",
+									"type": "text"
 								},
 								{
 									"key": "gender",
 									"value": "1",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "profession",
-									"value": "ceo",
-									"type": "text",
-									"disabled": true
+									"value": "Developers",
+									"type": "text"
 								},
 								{
 									"key": "nationality",
-									"value": "indo",
-									"type": "text",
-									"disabled": true
+									"value": "USA",
+									"type": "text"
 								},
 								{
 									"key": "birthDate",
 									"value": "1998-01-13",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "picture",
 									"type": "file",
-									"src": "/C:/Users/telkomdev/Downloads/How Much to Tip for Pizza Delivery_.jpg",
-									"disabled": true
+									"src": "/C:/Users/telkomdev/Downloads/solo.jpg"
 								}
 							]
 						},
@@ -1853,12 +2066,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/profile",
+							"raw": "{{url}}/profile?page",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"profile"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": null
+								}
 							]
 						}
 					},
@@ -1944,12 +2163,34 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/wishlist",
+									"raw": "{{url}}/wishlist?page=1&search&limit&sort&sortBy",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"wishlist"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "limit",
+											"value": null
+										},
+										{
+											"key": "sort",
+											"value": null
+										},
+										{
+											"key": "sortBy",
+											"value": null
+										}
 									]
 								}
 							},
@@ -2000,7 +2241,7 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "{{url}}/events?limit=&sortBy=desc",
+									"raw": "{{url}}/events?search=&sortBy=&page=&location=&categories=",
 									"host": [
 										"{{url}}"
 									],
@@ -2009,12 +2250,24 @@
 									],
 									"query": [
 										{
-											"key": "limit",
+											"key": "search",
 											"value": ""
 										},
 										{
 											"key": "sortBy",
-											"value": "desc"
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": ""
+										},
+										{
+											"key": "location",
+											"value": ""
+										},
+										{
+											"key": "categories",
+											"value": ""
 										}
 									]
 								}
@@ -2038,7 +2291,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "15"
+											"value": "10"
 										}
 									]
 								}
@@ -2056,11 +2309,11 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/telkomdev/Downloads/Kaaba, Mekka, Saudi Arabia.jpg"
+											"src": "/C:/Users/telkomdev/Downloads/jakarta.jpeg"
 										},
 										{
 											"key": "title",
-											"value": "Expo",
+											"value": "Jhon Wick",
 											"type": "text"
 										},
 										{
@@ -2070,12 +2323,12 @@
 										},
 										{
 											"key": "cityId",
-											"value": "20",
+											"value": "26",
 											"type": "text"
 										},
 										{
 											"key": "descriptions",
-											"value": "hoyeahhhhh",
+											"value": "test events",
 											"type": "text"
 										},
 										{
@@ -2086,12 +2339,13 @@
 									]
 								},
 								"url": {
-									"raw": "{{url}}/events",
+									"raw": "{{url}}/events/manage",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
-										"events"
+										"events",
+										"manage"
 									]
 								}
 							},
@@ -2112,12 +2366,12 @@
 										},
 										{
 											"key": "title",
-											"value": "IDE",
+											"value": "hut",
 											"type": "text"
 										},
 										{
 											"key": "date",
-											"value": "",
+											"value": "2023-01-23",
 											"type": "text"
 										},
 										{
@@ -2132,24 +2386,25 @@
 										},
 										{
 											"key": "categoriesId",
-											"value": "",
+											"value": "20",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "{{url}}/events/:id",
+									"raw": "{{url}}/events/manage/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"events",
+										"manage",
 										":id"
 									],
 									"variable": [
 										{
 											"key": "id",
-											"value": "8"
+											"value": ""
 										}
 									]
 								}
@@ -2174,7 +2429,7 @@
 									"urlencoded": [
 										{
 											"key": "oldPassword",
-											"value": "123",
+											"value": "12345",
 											"type": "text"
 										},
 										{
@@ -2216,7 +2471,7 @@
 									"formdata": [
 										{
 											"key": "eventId",
-											"value": "8",
+											"value": "10",
 											"type": "text"
 										}
 									]
@@ -2228,6 +2483,48 @@
 									],
 									"path": [
 										"reservations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PAYMENT",
+					"item": [
+						{
+							"name": "CREATE PAYMENT",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "reservationId",
+											"value": "12",
+											"type": "text"
+										},
+										{
+											"key": "paymentMethodId",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "statusId",
+											"value": "9",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/payment",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payment"
 									]
 								}
 							},
