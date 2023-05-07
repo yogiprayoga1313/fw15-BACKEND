@@ -4,7 +4,7 @@ const errorHandler = require("../../helpers/erorHandler.helper")
 
 
 exports.getAllEvents = async (request, response) => {
-    console.log(request.query)
+    console.log()  
     try { 
         const sortWhaitlist = ["name"]
         if(request.query.sort && !sortWhaitlist.includes(request.query.sort)){
@@ -21,18 +21,19 @@ exports.getAllEvents = async (request, response) => {
                 message:`Please choose one of the following sorting options:  ${sortByWhaitlist.join(",")}`
             })
         }
-
+        
         const data = await eventsModels.findAllEvents(request.query.page, 
             request.query.limit, 
             request.query.search,
             request.query.sort,
-            request.query.sortBy)
+            request.query.sortBy,
+            request.query.location,
+            request.query.categories)
         return response.json({
             success: true,
             message: "List off all events",
             results: data
         })
-
     } 
     catch (error) {
         console.log(error)
@@ -83,7 +84,11 @@ exports.getOneEvents = async (request, response) => {
 
 exports.createEvents = async (request, response) => {
     try{
-        if(!request.file || !request.body.name){
+        if(!request.file || 
+          !request.body.title ||
+          !request.body.date ||
+          !request.body.cityId ||
+          !request.body.descriptions){
             throw Error("invalid_data")
         }
         const data = {
@@ -108,7 +113,12 @@ exports.updateEvents = async (request, response) => {
         if(!request.params.id || isNaN(request.params.id)){
             throw Error("id_empty")
         }
-        if(isNaN(request.body.data)){
+        if(isNaN(!request.file ||
+          !request.body.title ||
+          !request.body.date ||
+          !request.body.cityId ||
+          !request.body.descriptions ||
+          !request.body.categories)){
             throw Error("invalid_data")
         }
         const data = {
@@ -132,7 +142,7 @@ exports.updateEvents = async (request, response) => {
             return response.status(404).json({
                 success: false,
                 message: "Error : Data events not found",
-                results: "*"
+                results: ""
             })
         }
     } catch (error) {

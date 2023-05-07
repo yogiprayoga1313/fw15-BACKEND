@@ -1,18 +1,54 @@
 const db = require ("../helpers/db.helper")
 
-exports.findAllEvents = async function(page, limit, search, sort, sortBy){
+exports.findAllEvents = async function(page, limit, search, sort, sortBy, location, categories){
+    // console.log("masuk sini")
     page = parseInt(page) || 1
-    limit = parseInt(limit) || 5
+    limit = parseInt(limit) || 8
     search = search || ""
     sort = sort || "id"
     sortBy = sortBy || "ASC"
+    location = location || ""
+    categories = categories || ""
 
     const offset = (page - 1) * limit
 
     const query = `
-  SELECT * FROM "events" WHERE "title" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
-  `
+    SELECT e.*, c.name AS "cityName", ca.name AS "categoriesName" FROM "events" e
+    INNER JOIN citites c ON c.id = e."cityId"
+    INNER JOIN categories ca ON ca.id = e."categoriesId"
+     WHERE
+    "title" LIKE $3
+    ${location ? `AND c.name LIKE '%${location}%'` : ""}
+    ${categories ? `AND ca.name LIKE '%${categories}%'` : ""}
+     ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
+    `
     const values = [limit, offset,`%${search}%`]
+    const {rows} = await db.query(query, values)
+    return rows
+}
+
+exports.countFindAllEvents = async function(page, limit, search, sort, sortBy, location, categories){
+    console.log("masuk sini")
+    page = parseInt(page) || 1
+    limit = parseInt(limit) || 8
+    search = search || ""
+    sort = sort || "id"
+    sortBy = sortBy || "ASC"
+    location = location || ""
+    categories = categories || ""
+
+    const offset = (page - 1) * limit
+
+    const query = `
+  SELECT COUNT(*) AS "totalData" FROM "events" e
+  INNER JOIN citites c ON c.id = e."cityId"
+  INNER JOIN categories ca ON ca.id = e."categoriesId"
+   WHERE
+  "title" LIKE $1
+  ${location ? `AND c.name LIKE '%${location}%'` : ""}
+  ${categories ? `AND ca.name LIKE '%${categories}%'` : ""}
+  `
+    const values = [`%${search}%`]
     const {rows} = await db.query(query, values)
     return rows
 }
@@ -30,7 +66,7 @@ exports.findEvents = async function(page, limit, search, sort, sortBy, location,
     const offset = (page - 1) * limit
 
     const query = `
-SELECT e.*, c.name AS cityName, ca.name AS categoriesName FROM "events" e
+SELECT e.*, c.name AS "cityName", ca.name AS "categoriesName" FROM "events" e
 INNER JOIN citites c ON c.id = e."cityId"
 INNER JOIN categories ca ON ca.id = e."categoriesId"
 INNER JOIN users ui ON e."createdBy" = ui.id

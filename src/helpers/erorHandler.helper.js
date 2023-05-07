@@ -70,6 +70,13 @@ const errorHandler = (response, err) => {
         })
     }
 
+    if(err?.message?.includes("no_user")){
+        return response.status(400).json({
+            success: false,
+            message: "Email not found!"
+        })
+    }
+
     if(err?.message?.includes("empty_field")){
         return response.status(400).json({
             success: false,

@@ -2,7 +2,7 @@ const db = require ("../helpers/db.helper")
 
 exports.findAllEventCategoris = async function(page, limit, search, sort, sortBy){
     page = parseInt(page) || 1
-    limit = parseInt(limit) || 5
+    limit = parseInt(limit) || 3
     search = search || ""
     sort = sort || "id"
     sortBy = sortBy || "ASC"
@@ -10,7 +10,9 @@ exports.findAllEventCategoris = async function(page, limit, search, sort, sortBy
     const offset = (page - 1) * limit
 
     const query = `
-  SELECT * FROM "eventCategories" WHERE "eventId" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
+  SELECT c.* FROM "eventCategories" ec
+  INNER JOIN "categories" c ON c."id" = ec."categoryId"
+  WHERE "eventId" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1  OFFSET $2 
   `
     const values = [limit, offset,`%${search}%`]
     const {rows} = await db.query(query, values)

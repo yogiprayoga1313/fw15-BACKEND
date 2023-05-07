@@ -28,10 +28,10 @@ SELECT  * FROM "reservations" WHERE id=$1
 
 exports.insert = async function(data){
     const query = `
-INSERT INTO "reservations" ("eventId", "userId", "statusId", "paymentMethod") 
+INSERT INTO "reservations" ("eventId", "userId", "statusId", "paymentMethodId") 
 VALUES ($1, $2, $3, $4) RETURNING *
 `
-    const values = [data.eventId, data.userId, data.statusId, data.paymentMethod]
+    const values = [data.eventId, data.userId, data.statusId, data.paymentMethodId]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
