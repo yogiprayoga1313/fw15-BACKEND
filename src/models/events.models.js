@@ -28,7 +28,6 @@ exports.findAllEvents = async function(page, limit, search, sort, sortBy, locati
 }
 
 exports.countFindAllEvents = async function(page, limit, search, sort, sortBy, location, categories){
-    console.log("masuk sini")
     page = parseInt(page) || 1
     limit = parseInt(limit) || 8
     search = search || ""
@@ -36,8 +35,6 @@ exports.countFindAllEvents = async function(page, limit, search, sort, sortBy, l
     sortBy = sortBy || "ASC"
     location = location || ""
     categories = categories || ""
-
-    const offset = (page - 1) * limit
 
     const query = `
   SELECT COUNT(*) AS "totalData" FROM "events" e
@@ -83,10 +80,16 @@ ${categories ? `AND ca.name LIKE '%${categories}%'` : ""}
 }
 
 
-exports.findOne = async function(id){
+exports.findOne = async function(id, location, categories){
     const query = `
-SELECT  * FROM "events" WHERE id=$1
-`
+    SELECT e.*, c.name AS "cityName", ca.name AS "categoriesName"
+    FROM "events" e
+    INNER JOIN citites c ON c.id = e."cityId"
+    INNER JOIN categories ca ON ca.id = e."categoriesId"
+    WHERE e.id=$1
+    ${location ? `AND c.name LIKE '%${location}%'` : ""}
+    ${categories ? `AND ca.name LIKE '%${categories}%'` : ""}
+    `
     const values = [id]
     const {rows} = await db.query(query, values)
     return rows[0]
@@ -96,7 +99,7 @@ SELECT  * FROM "events" WHERE id=$1
 exports.findOneByUserid = async function(data){
     console.log(data)
     const query = `
-SELECT  * FROM "events" WHERE id=$1 AND "createdBy" = $2
+SELECT  * FROM "events" WHERE id=$1 AND "createdBy" 
 `
     const values = [data.id, data.userId]
     const {rows} = await db.query(query, values)
