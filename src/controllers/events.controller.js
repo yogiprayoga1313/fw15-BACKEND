@@ -37,7 +37,7 @@ exports.getAllEvents = async (request, response) => {
             request.query.sortBy,
             request.query.location,
             request.query.categories)
-        // console.log(countData)
+        console.log(countData)
         return response.json({
             success: true,
             message: "List off all events",

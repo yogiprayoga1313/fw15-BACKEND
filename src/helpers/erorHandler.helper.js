@@ -92,7 +92,7 @@ const errorHandler = (response, err) => {
     if(err?.message?.includes("password_unmatch")){
         return response.status(401).json({
             success: false,
-            message: "Password and confirm password does not match"
+            message: "Password does not match"
         })
     }
     if(err?.message?.includes("unauthorized")){

@@ -12,7 +12,7 @@ router.get("/", (request, response) =>{
 
 router.use("/auth", require("./auth.router"))
 router.use("/admin",authMiddleware, require("./admin/admin.router"))
-router.use("/profile",require("./profile.router"))
+router.use("/profile",authMiddleware, require("./profile.router"))
 router.use("/citites",require("./citites.touter"))
 router.use("/categories",require("./categories.router"))
 router.use("/partners",require("./partners.router"))

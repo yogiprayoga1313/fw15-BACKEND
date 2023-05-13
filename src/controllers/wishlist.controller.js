@@ -6,7 +6,7 @@ const eventsModel = require ("../models/events.models")
 
 
 exports.getWishlist = async (request, response) => {
-    try { 
+    try {
         if(!request.headers.authorization){
             throw Error("Unauthorized!")
         }
@@ -32,6 +32,7 @@ exports.getWishlist = async (request, response) => {
             })
         }
 
+      
         const data = await wishlistModels.findAllWishlist(request.query.page, 
             request.query.limit, 
             request.query.search,

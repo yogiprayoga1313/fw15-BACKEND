@@ -32,9 +32,21 @@ exports.login = async (request, response) => {
 
 exports.register = async (request, response) => {
     try {
-        const {fullName, password, confirmPassword } = request.body
+        const {fullName, email, password, confirmPassword } = request.body
         if (password !== confirmPassword) {
             throw Error("password_unmatch")
+        }
+        if(!email || !fullName || !password || !confirmPassword){
+            return response.status(404).json({
+                success: false,
+                message:"Data cannot be empty!!"
+            })
+        }
+        if(!email.includes("@")){
+            return response.status(404).json({
+                success: false,
+                message:"Email must contain @!"
+            })
         }
         const hash = await argon.hash(password)
         const data = {
