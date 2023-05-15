@@ -134,6 +134,7 @@ exports.updateProfile = async (request, response) => {
         }
         if (request.file){
             data.picture = request.file.filename
+            // console.log(request.file)
         }
         const resultUpdate = await profileModels.update(request.params.id, data)
         if(resultUpdate){
