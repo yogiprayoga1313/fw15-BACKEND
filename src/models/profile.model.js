@@ -34,7 +34,7 @@ exports.findOneByUserId = async function(userId){
 "u"."id" AS "userId",
 "p"."picture",
 "p"."fullName",
-"u"."username",
+"u"."userName",
 "u"."email",
 "p"."phoneNumber",
 "p"."gender",

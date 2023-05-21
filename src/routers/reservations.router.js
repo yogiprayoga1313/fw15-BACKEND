@@ -1,8 +1,8 @@
 const reservationRouter = require("express").Router()
 
 const reservationsController = require("../controllers/reservations.controller")
-const authMiddleware = require("../middlewares/upload.middleware")
+// const authMiddleware = require("../middlewares/upload.middleware")
 
-reservationRouter.post("/",authMiddleware("picture"),reservationsController.createReservation)
+reservationRouter.post("/",reservationsController.createReservation)
 
 module.exports = reservationRouter

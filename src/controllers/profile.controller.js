@@ -1,41 +1,54 @@
 const errorHandler = require("../helpers/erorHandler.helper")
 const fileRemover = require("../helpers/fileRemover.helper")
 const profileModels = require("../models/profile.model")
+const userModel = require("../models/users.model")
 
 exports.updateProfile = async (req, res) => {
-    try{
-        const {id} = req.user
+    try {
+        const { id } = req.user
         const user = await profileModels.findOneByUserId(id)
         const data = {
             ...req.body
         }
-        if(req.file){
-            if(user.picture){
-                fileRemover({filename: user.picture})
+        if (req.file) {
+            if (user.picture) {
+                // fileRemover({ filename: user.picture })
             }
-            
+
             data.picture = req.file.path
             console.log(req.file)
         }
         const profile = await profileModels.updateByUserId(id, data)
-        if(!profile){
+        if (!profile) {
             throw Error("Update_profile_failed")
         }
+        const userUpdate = await userModel.update(id, data)
+        if (!userUpdate) {
+            throw Error("Update_profile_failed")
+        }
+        const results = {
+            ...profile,
+            email: userUpdate?.email,
+            userName: userUpdate?.userName
+        }
+        console.log(results)
         return res.json({
             success: true,
             message: "Profile Updated",
-            results: profile
+            results
+
         })
-    }catch(err){
+
+    } catch (err) {
         return errorHandler(res, err)
-    }    
+    }
 }
 
 exports.getProfile = async (req, res) => {
-    try{
-        const {id} = req.user
-        const profile  = await profileModels.findOneByUserId(id)
-        if(!profile){
+    try {
+        const { id } = req.user
+        const profile = await profileModels.findOneByUserId(id)
+        if (!profile) {
             throw Error("profile_not_found!")
         }
         return res.json({
@@ -43,7 +56,7 @@ exports.getProfile = async (req, res) => {
             message: "Profile",
             results: profile
         })
-    }catch(err){
+    } catch (err) {
         return errorHandler(res, err)
     }
 }

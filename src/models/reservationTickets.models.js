@@ -26,6 +26,15 @@ SELECT  * FROM "reservationsTickets" WHERE id=$1
     return rows[0]
 }
 
+exports.findOneByReservationId = async function(id){
+    const query = `
+SELECT  * FROM "reservationsTickets" WHERE "reservationId" = $1
+`
+    const values = [id]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
+
 exports.insert = async function(data){
     const query = `
 INSERT INTO "reservationsTickets" ("reservationId", "sectionId", "quantity") 

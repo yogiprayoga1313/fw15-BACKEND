@@ -124,9 +124,8 @@ exports.updateEvents = async (request, response) => {
         const data = {
             ...request.body
         }
-        console.log(data.picture, "data controller")
         if(request.file){
-            data.picture = request.file.filename
+            data.picture = request.file.path
         }
         const resultUpdate = await eventsModels.update(request.params.id, data)
         // console.log(data)

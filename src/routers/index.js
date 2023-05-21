@@ -19,8 +19,9 @@ router.use("/partners",require("./partners.router"))
 router.use("/wishlist",require("./wishlist.router"))
 router.use("/events",require("./events.router"))
 router.use("/changePassword",require("./changePassword.router"))
-router.use("/reservations",require("./reservations.router"))
-router.use("/payment",require("./payment.router"))
+router.use("/reservations",authMiddleware, require("./reservations.router"))
+router.use("/payment",authMiddleware, require("./payment.router"))
+router.use("/section",authMiddleware, require("./section.router"))
 
 
 
