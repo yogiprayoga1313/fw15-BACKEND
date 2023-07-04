@@ -6,18 +6,18 @@ const ticketModel = require("../models/reservationTickets.models")
 const jwt_decode = require("jwt-decode")
 const sectionModel = require ("../models/reservationSection.models")
 
-exports.createReservation = async (request, response) => {
+exports.createReservation = async (req, response) => {
     try {
-        if (!request.body.eventId) {
+        if (!req.body.eventId) {
             return response.status(400).json({
                 success: false,
                 message: "Data cannot be empty!"
             })
         }
-        if (!request.headers.authorization) {
+        if (!req.headers.authorization) {
             throw Error("Unauthorized!")
         }
-        const bearer = request.headers.authorization.split(" ")[1]
+        const bearer = req.headers.authorization.split(" ")[1]
         const bearerDecode = jwt_decode(bearer)
         const userData = await userModel.findOne(bearerDecode.id)
         if (!userData) {
@@ -25,7 +25,7 @@ exports.createReservation = async (request, response) => {
         }
 
         const payload = {
-            ...request.body,
+            ...req.body,
             userId: userData.id,
         }
         const eventsResults = await eventsModels.findOne(payload.eventId)
@@ -35,18 +35,18 @@ exports.createReservation = async (request, response) => {
                 message: "Events Not Found!"
             })
         }
-        const {id: userId} = request.user
+        const {id: userId} = req.user
         const rsvData = {
-            ...request.body,
+            ...req.body,
             userId,
             statusId:1
         }
         const rsv = await reservationModel.insert(rsvData)
         const ticketRsv = {
-            ...request.body,
+            ...req.body,
             reservationId: rsv.id
         }
-        const section = await sectionModel.findOne(request.body.sectionId)
+        const section = await sectionModel.findOne(req.body.sectionId)
         
         await ticketModel.insert(ticketRsv)
         return response.json({
@@ -54,24 +54,14 @@ exports.createReservation = async (request, response) => {
             message: "Create Reservation Success",
             results: {
                 id: rsv.id,
-                events: await eventsModels.findOne(request.body.eventId),
+                events: await eventsModels.findOne(req.body.eventId),
                 sectionName: section.name,
-                quantity: request.body.quantity,
+                quantity: req.body.quantity,
                 pricePerTicket: section.price,
-                totalPrice: parseInt(request.body.quantity) * section.price
+                totalPrice: parseInt(req.body.quantity) * section.price
             }
+            
         })
-        // const reservation = await reservationModel.insert(payload)
-        // reservation.event = eventsResults
-        // reservation.user = {
-        //     ...userData,
-        //     ...profileData
-        // }
-        // return response.json({
-        //     success: true,
-        //     message: "Create Reservation Success",
-        //     results: reservation
-        // })
     } catch (err) {
         return errorHandler(response, err)
     }

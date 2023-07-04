@@ -35,6 +35,13 @@ const errorHandler = (response, err) => {
         })
     }
 
+    if(err?.message?.includes("validation")){
+        return response.status(400).json({
+            success: false,
+            message: "Error : validation!",
+        })
+    }
+
     if(err?.message?.includes("id_empty")){
         return response.status(404).json({
             success: false,

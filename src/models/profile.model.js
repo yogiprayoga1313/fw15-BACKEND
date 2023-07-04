@@ -70,7 +70,6 @@ SELECT  * FROM "${tabel}" WHERE id=$1
 }
 
 exports.insert = async function(data){
-    // console.log(data)
     const query = `
   INSERT INTO "${tabel}" ("picture", "fullName", "phoneNumber", "gender", "profession", "nationality", "birthDate", "userId")
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *

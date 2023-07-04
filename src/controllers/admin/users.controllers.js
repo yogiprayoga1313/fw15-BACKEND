@@ -84,7 +84,7 @@ exports.getOneUser = async (request, response) => {
 
 exports.createUsers = async (request, response) =>{
     try {
-        if(!request.body.user ||
+        if(!request.body.email ||
           !request.body.username ||
           !request.body.password){
             throw Error("invalid_data")
@@ -95,7 +95,6 @@ exports.createUsers = async (request, response) =>{
             password: hash
         }
         const user = await userModel.insert(data)
-        console.log(user)
         await profileModels.insert({
             picture:"",
             fullName:"",
@@ -127,7 +126,6 @@ exports.updateUser = async (request, response) => {
             password: hash
         }
         const resultUpdate = await userModel.update(request.params.id, data)
-        console.log(data)
         if(resultUpdate){
             return response.json({
                 success: true,

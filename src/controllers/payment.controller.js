@@ -18,7 +18,7 @@ exports.createPayment = async (req, res)=> {
         const ticket = await ticketModel.findOneByReservationId(update.id)
 
         const section = await sectionModel.findOne(ticket.sectionId)
-        console.log(update)
+        console.log(section)
         return res.json({
             success: true,
             message: "Create payment Success",
@@ -28,8 +28,9 @@ exports.createPayment = async (req, res)=> {
                 sectionName: section.name,
                 quantity: req.body.quantity,
                 pricePerTicket: section.price,
-                totalPrice: parseInt(req.body.quantity) * section.price
+                totalPrice: parseInt(req.body.quantity) * section.price,
             }
+            
         })
     } catch (err) {
         return erorHandler(res, err)
