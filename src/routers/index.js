@@ -22,6 +22,7 @@ router.use("/changePassword",require("./changePassword.router"))
 router.use("/reservations",authMiddleware, require("./reservations.router"))
 router.use("/payment",authMiddleware, require("./payment.router"))
 router.use("/section",authMiddleware, require("./section.router"))
+router.use("/device-token",authMiddleware, require("./deviceToken.router"))
 
 
 

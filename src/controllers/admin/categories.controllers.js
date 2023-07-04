@@ -41,9 +41,7 @@ exports.getAllCategories = async (request, response) => {
 
 
 exports.getOneCategories = async (request, response) => {
-    // console.log("check")
     try {
-        console.log(parseInt(request.params.id))
         if(isNaN(request.params.id) && parseInt(request.params.id) !== request.params.id){
             return response.status(400).json({
                 success:false,
@@ -100,7 +98,6 @@ exports.createCategories = async (request, response) => {
 }
 
 exports.updateCategories = async (request, response) => {
-    // console.log(request.params.id)
     try{
         if(!request.params.id || isNaN(request.params.id)){
             throw Error("id_empty")

@@ -33,6 +33,18 @@ exports.login = async (request, response) => {
 exports.register = async (request, response) => {
     try {
         const {fullName, email, password, confirmPassword } = request.body
+        if(!email.includes("@")){
+            return response.status(404).json({
+                success: false,
+                message:"Email must contain @!"
+            })
+        }
+        if(!email.includes(".com")){
+            return response.status(404).json({
+                success: false,
+                message:"Email is Invalid!"
+            })
+        }
         if (password !== confirmPassword) {
             throw Error("password_unmatch")
         }
@@ -40,12 +52,6 @@ exports.register = async (request, response) => {
             return response.status(404).json({
                 success: false,
                 message:"Data cannot be empty!!"
-            })
-        }
-        if(!email.includes("@")){
-            return response.status(404).json({
-                success: false,
-                message:"Email must contain @!"
             })
         }
         const hash = await argon.hash(password)
@@ -77,6 +83,7 @@ exports.forgotPassword = async (request, response) => {
         if(!user){
             throw Error("no_user")
         }
+        
         const randomNumber = Math.random()
         const rounded = Math.round(randomNumber * 100000)
         const padded = String(rounded).padEnd(6, "0")
@@ -100,10 +107,13 @@ exports.forgotPassword = async (request, response) => {
 
 exports.resetPassword =  async (request, response) => {
     try{
-        const {code, email, password} = request.body
+        const {code, email, password, confirmPassword} = request.body
         const find = await forgotRequsetModels.findOneByCodeAndEmail(code, email)
         if(!find){
             throw Error("no_forget_password")
+        }
+        if (password !== confirmPassword) {
+            throw Error("password_unmatch")
         }
         const selectedUser = await userModel.findOneByEmail(email)
         const data = {

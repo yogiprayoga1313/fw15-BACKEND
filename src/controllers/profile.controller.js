@@ -1,5 +1,5 @@
 const errorHandler = require("../helpers/erorHandler.helper")
-const fileRemover = require("../helpers/fileRemover.helper")
+// const fileRemover = require("../helpers/fileRemover.helper")
 const profileModels = require("../models/profile.model")
 const userModel = require("../models/users.model")
 
@@ -16,7 +16,6 @@ exports.updateProfile = async (req, res) => {
             }
 
             data.picture = req.file.path
-            console.log(req.file)
         }
         const profile = await profileModels.updateByUserId(id, data)
         if (!profile) {

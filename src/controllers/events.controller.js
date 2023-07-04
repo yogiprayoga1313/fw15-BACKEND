@@ -210,7 +210,7 @@ exports.createEvents = async (request, response) => {
             userId:userData.id
         }
         if(request.file){
-            data.picture = request.file.filename
+            data.picture = request.file.path
         }
         const events = await eventsModels.insert(data)
         return response.json({

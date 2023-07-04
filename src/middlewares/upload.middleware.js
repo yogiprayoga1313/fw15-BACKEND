@@ -33,40 +33,44 @@ const storage = new CloudinaryStorage({
 //     }
 // })
 
-const limits =  {
+const limits = {
     fileSize: 1 * 1024 * 1024
 }
 
-const fileFilter = (req, file, cb) =>{
+const fileFilter = (req, file, cb) => {
     const formatFile = ["image/jpg", "image/jpeg"]
-    if(!formatFile.includes(file.mimetype)){
+    if (!formatFile.includes(file.mimetype)) {
         console.log(file.mimetype)
         cb(Error("fileformat_error"))
     }
-    cb(null,true)
+    cb(null, true)
 }
 
-const upload = multer({storage, limits, fileFilter})
+const upload = multer({ storage, limits, fileFilter })
 
 const uploadMiddleware = (field) => {
-    const uploadField = upload.single(field)
-    return (request, response, next) => {
-        uploadField(request, response, (err) => {
-            if(err){
-                if(err.message === "fileformat_error"){
+
+    if (field) {
+        const uploadField = upload.single(field)
+        return (request, response, next) => {
+            uploadField(request, response, (err) => {
+                if (err) {
+                    if (err.message === "fileformat_error") {
+                        return response.status(400).json({
+                            success: false,
+                            message: "File format invalid"
+                        })
+                    }
                     return response.status(400).json({
                         success: false,
-                        message: "File format invalid"
+                        message: "File to large"
                     })
                 }
-                return response.status(400).json({
-                    success: false,
-                    message: "File to large"
-                })
-            }
-            return next()
-        })
+                return next()
+            })
+        }
     }
+
 }
 
 module.exports = uploadMiddleware
