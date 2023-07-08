@@ -2,6 +2,8 @@ const eventsModels = require("../../src/models/events.models")
 const errorHandler = require("../../src/helpers/erorHandler.helper")
 const jwt_decode = require("jwt-decode")
 const userModel = require ("../models/users.model")
+const admin = require("../helpers/firebase")
+const deviceTokenModel = require("../models/deviceToken.models")
 
 
 exports.getAllEvents = async (request, response) => {
@@ -212,6 +214,15 @@ exports.createEvents = async (request, response) => {
         if(request.file){
             data.picture = request.file.path
         }
+        const listToken = await deviceTokenModel.findAll(1, 1000)
+        const message = listToken.map(item =>({
+            token: item.token, notification: {
+                title: "there is new events!", 
+                body:`${request.body.title} will be held at ${request.body.date}, check it out!` 
+            }}))
+        const messaging = admin.messaging()
+        messaging.sendEach(message)
+
         const events = await eventsModels.insert(data)
         return response.json({
             success: true,
@@ -257,7 +268,7 @@ exports.updateEvents = async (request, response) => {
             title:request.body.title?? findEvents.title,
             date:request.body.date?? findEvents.date,
             descriptions:request.body.descriptions?? findEvents.descriptions,
-            categoriesId:request.body.categoriesId?? findEvents.descriptions,
+            categoriesId:request.body.categoriesId?? findEvents.categoriesId,
             cityId:request.body.cityId?? findEvents.cityId
         }
         // console.log(data)

@@ -7,12 +7,10 @@ exports.findAllWishlist = async function(page, limit, search, sort, sortBy, id, 
     sort = sort || "id"
     sortBy = sortBy || "ASC"
 
-    const offset = (page - 1) * limit
 
     const query =  `
     SELECT 
-    "w"."id",
-    "e"."id", 
+    "w"."id" AS "wishlistId",
     "e"."title", 
     "e"."date", 
     "e"."picture", 
@@ -88,3 +86,26 @@ DELETE FROM "wishlist" WHERE "id"=$1
     const {rows} = await db.query(query, values)
     return rows [0]
 }
+
+
+// exports.findOneByUserIdAndEventId = async(userId, eventId) => {
+//     const queries = `
+//   SELECT * FROM "wishlist"
+//   WHERE "userId" = $1 AND "eventId" = $2
+// `  
+//     const values = [userId, eventId]
+//     const {rows} = await db.query(queries,values)  
+//     return rows[0]
+// }
+
+// exports.DeleteByUserIdAndEventId = async(userId, eventId)=>{
+//     const queries = `
+// DELETE FROM "wishlist"
+// WHERE "userId" = $1 AND "eventId" = $2
+// RETURNING *
+// `
+//     const values = [userId, eventId]
+
+//     const {rows} = await db.query(queries, values)
+//     return rows[0]
+// }

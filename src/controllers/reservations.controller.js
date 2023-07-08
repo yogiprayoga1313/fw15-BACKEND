@@ -8,7 +8,9 @@ const sectionModel = require ("../models/reservationSection.models")
 
 exports.createReservation = async (req, response) => {
     try {
-        if (!req.body.eventId) {
+        if (!req.body.eventId,
+        !req.body.quantity,
+        !req.body.sectionId) {
             return response.status(400).json({
                 success: false,
                 message: "Data cannot be empty!"

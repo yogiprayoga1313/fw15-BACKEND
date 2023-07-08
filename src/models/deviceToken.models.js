@@ -2,6 +2,24 @@ const db = require("../helpers/db.helper")
 
 const tabel = "deviceToken"
 
+exports.findAll = async function(page, limit, sort, sortBy){
+    page = parseInt(page) || 1
+    limit = parseInt(limit) || 5
+    sort = sort || "id"
+    sortBy = sortBy || "ASC"
+
+    const offset = (page - 1) * limit
+
+    const query = `
+  SELECT * FROM "${tabel}"
+  ORDER BY "${sort}" ${sortBy} 
+  LIMIT $1  OFFSET $2 
+  `
+    const values = [limit, offset]
+    const {rows} = await db.query(query, values)
+    return rows
+}
+
 exports.insertToken = async function(id,data){
     const query = `
 INSERT INTO "${tabel}" 
