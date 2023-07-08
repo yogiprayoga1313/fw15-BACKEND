@@ -1,6 +1,7 @@
 const eventsModels = require("../../models/events.models")
+const deviceTokenModel = require("../../models/deviceToken.models")
 const errorHandler = require("../../helpers/erorHandler.helper")
-
+const admin = require("../../helpers/firebase")
 
 
 exports.getAllEvents = async (request, response) => {
@@ -88,20 +89,34 @@ exports.createEvents = async (request, response) => {
           !request.body.title ||
           !request.body.date ||
           !request.body.cityId ||
-          !request.body.descriptions){
+          !request.body.descriptions,
+        !request.body.categoriesId
+        ){
             throw Error("invalid_data")
         }
+
         const data = {
             ...request.body
         }
+
         if(request.file){
-            data.picture = request.file.filename
+            data.picture = request.file.path
         }
-        const citites = await eventsModels.insert(data)
+
+        const listToken = await deviceTokenModel.findAll(1, 1000)
+        const message = listToken.map(item =>({
+            token: item.token, notification: {
+                title: "there is new events!", 
+                body:`${request.body.title} will be held at ${request.body.date}, check it out!` 
+            }}))
+        const messaging = admin.messaging()
+        messaging.sendEach(message)
+
+        const events = await eventsModels.insert(data)
         return response.json({
             success: true,
             message: "Create events success",
-            results: citites
+            results: events
         })
     }catch(err){
         return errorHandler(response, err) 

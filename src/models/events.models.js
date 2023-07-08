@@ -121,7 +121,7 @@ exports.update = async function(id, data){
     const query = `
 UPDATE "events" 
 SET "picture"=$2, "title"=$3, "date"=$4, "cityId"=$5, "descriptions"=$6
-WHERE "id"=$1
+WHERE "id"=$1 
 RETURNING *
 `
     const values = [id, data.picture, data.title, data.date, data.cityId, data.descriptions]

@@ -61,3 +61,57 @@ DELETE FROM "reservations" WHERE "id"=$1
     const {rows} = await db.query(query, values)
     return rows [0]
 }
+
+exports.findHistoryByUserId = async(id,page, limit, search, sort, sortBy) => {
+    page = parseInt(page) || 1
+    limit = parseInt(limit) || 5
+    search = search || ""
+    sort = sort || "id"
+    sortBy = sortBy || "ASC"
+
+    const offset = (page - 1) * limit
+    const queries = `
+  SELECT
+  reservations."id", 
+  events.title, 
+  citites."name" AS "location", 
+  events."date"
+FROM
+  reservations
+  LEFT JOIN
+  events
+  ON 
+    reservations."eventId" = events."id"
+  LEFT JOIN
+  citites
+  ON 
+    events."cityId" = citites."id"
+  WHERE reservations."userId" = $1
+  AND events.title ILIKE $4
+    ORDER BY ${sort} ${sortBy}
+    LIMIT $2 OFFSET $3
+  `  
+    const values = [id,limit, offset,`%${search}%`]
+    const {rows} = await db.query(queries,values)  
+    return rows
+}
+
+exports.findHistoryByIdAndUserId = async(id, userId) => {
+    const queries = `
+  SELECT
+  "e"."title",
+  "c"."name",
+  "e"."date",
+  "rstat"."name" AS "reservationStatus",
+  "pm"."name" AS "paymentStatus"
+  FROM "reservations" "r"
+  INNER JOIN "events" "e" ON "e"."id" = "r"."eventId"
+  INNER JOIN "citites" "c" ON "c"."id" = "e"."cityId"
+  INNER JOIN "reservationStatus" "rstat" ON "rstat"."id" = "r"."statusId"
+  INNER JOIN "paymentMethods" "pm" ON "pm"."id" = "r"."paymentMethodId"
+  WHERE "r"."id" = $1 AND "r"."userId" = $2
+  `  
+    const values = [id, userId]
+    const {rows} = await db.query(queries,values)  
+    return rows[0]
+}
