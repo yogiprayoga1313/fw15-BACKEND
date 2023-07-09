@@ -1,16 +1,22 @@
 const errorHandler = require("../helpers/erorHandler.helper")
 const deviceTokenModel = require("../models/deviceToken.models")
 
+
+
 exports.saveToken = async (req, res) =>{
     try{
         const {id} = req.user
         const {token} =req.body
-        const savedData = await deviceTokenModel.insertToken(id, {token})
+        const exists = await deviceTokenModel.findOneByToken(token)
+        if(exists){
+            await deviceTokenModel.updateUserIdByToken(token, id)
+        }else{ await deviceTokenModel.insertToken(id, {token})
+        }
         return res.json({
             succes: true,
             message:" Token saved!",
             results: {
-                token: savedData.token
+                token
             }
         })
     }catch(err){

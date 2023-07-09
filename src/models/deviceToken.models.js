@@ -30,3 +30,25 @@ VALUES ($1, $2) RETURNING *
     const {rows} = await db.query(query, values)
     return rows [0]
 }
+
+exports.findOneByToken = async (token)=>{
+    const query = `
+SELECT * FROM "${tabel}" 
+WHERE token = $1
+`
+    const values = [token]
+    const {rows} = await db.query(query, values)
+    return rows [0]
+}
+
+exports.updateUserIdByToken = async (token,id)=>{
+    const query = `
+UPDATE"${tabel}" 
+SET  "userId" = $2
+WHERE token = $1
+`
+    const values = [token, id]
+    const {rows} = await db.query(query, values)
+    return rows [0]
+}
+
