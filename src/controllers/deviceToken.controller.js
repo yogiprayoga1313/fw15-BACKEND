@@ -1,6 +1,8 @@
 const errorHandler = require("../helpers/erorHandler.helper")
 const deviceTokenModel = require("../models/deviceToken.models")
 
+
+
 exports.saveToken = async (req, res) =>{
     try{
         const {id} = req.user

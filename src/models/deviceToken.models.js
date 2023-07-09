@@ -41,7 +41,7 @@ WHERE token = $1
     return rows [0]
 }
 
-exports.updateUserIdByToken = async (token, id)=>{
+exports.updateUserIdByToken = async (token,id)=>{
     const query = `
 UPDATE"${tabel}" 
 SET  "userId" = $2
