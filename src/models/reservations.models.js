@@ -67,7 +67,7 @@ exports.findHistoryByUserId = async(id,page, limit, search, sort, sortBy) => {
     limit = parseInt(limit) || 5
     search = search || ""
     sort = sort || "id"
-    sortBy = sortBy || "ASC"
+    sortBy = sortBy?.toUpperCase() ?? "ASC"
 
     const offset = (page - 1) * limit
     const queries = `
@@ -87,7 +87,7 @@ FROM
   ON 
     events."cityId" = citites."id"
   WHERE reservations."userId" = $1
-  AND events.title ILIKE $4
+  AND events.title LIKE $4
     ORDER BY ${sort} ${sortBy}
     LIMIT $2 OFFSET $3
   `  
