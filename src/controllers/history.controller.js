@@ -8,8 +8,12 @@ exports.getHistory = async (request, response) => {
             throw Error("unauthorized")
         }
 
-        const history = await reservationsModel.findHistoryByUserId(id)
-        console.log(history)
+        const history = await reservationsModel.findHistoryByUserId(id,
+            request.query.page, 
+            request.query.limit, 
+            request.query.search,
+            request.query.sort,
+            request.query.sortBy)
         if(!history){
             throw Error("data_not_found")
         }
