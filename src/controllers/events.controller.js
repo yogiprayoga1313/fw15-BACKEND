@@ -251,12 +251,12 @@ exports.updateEvents = async (request, response) => {
         if(!userData){
             throw Error("User Not found!")
         }
-        // console.log(data.picture, "data controller")
+        console.log( "data controller")
         const findEvents = await eventsModels.findOneByUserid({
             id:request.params.id,
             userId:userData.id
         })
-        console.log(findEvents)
+        console.log(findEvents,"3")
         if(!findEvents){
             return response.status(404).json({
                 success:false,
@@ -271,12 +271,12 @@ exports.updateEvents = async (request, response) => {
             categoriesId:request.body.categoriesId?? findEvents.categoriesId,
             cityId:request.body.cityId?? findEvents.cityId
         }
-        // console.log(data)
+        console.log(data,"data")
         if(request.file){
-            data.picture = request.file.filename
+            data.picture = request.file.path
         }
         const resultUpdate = await eventsModels.update(request.params.id, data)
-        // console.log(data)
+        console.log(data,"1")
         if(resultUpdate){
             return response.json({
                 success: true,

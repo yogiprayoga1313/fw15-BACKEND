@@ -99,7 +99,7 @@ exports.findOne = async function(id, location, categories){
 exports.findOneByUserid = async function(data){
     console.log(data)
     const query = `
-SELECT  * FROM "events" WHERE id=$1 AND "createdBy" 
+SELECT  * FROM "events" WHERE id=$1 AND "createdBy"=$2
 `
     const values = [data.id, data.userId]
     const {rows} = await db.query(query, values)
@@ -120,11 +120,11 @@ VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *
 exports.update = async function(id, data){
     const query = `
 UPDATE "events" 
-SET "picture"=$2, "title"=$3, "date"=$4, "cityId"=$5, "descriptions"=$6
+SET "picture"=$2, "title"=$3, "date"=$4, "cityId"=$5, "descriptions"=$6, "categoriesId"=$7
 WHERE "id"=$1 
 RETURNING *
 `
-    const values = [id, data.picture, data.title, data.date, data.cityId, data.descriptions]
+    const values = [id, data.picture, data.title, data.date, data.cityId, data.descriptions, data.categoriesId]
     const {rows} = await db.query(query, values)
     return rows [0]
 }
