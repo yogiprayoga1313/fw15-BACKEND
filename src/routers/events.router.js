@@ -9,5 +9,6 @@ eventsRouter.get("/manage", eventsControllers.getEvents)
 eventsRouter.post("/manage",uploadMiddleware("picture"), eventsControllers.createEvents)
 eventsRouter.patch("/manage/:id",uploadMiddleware("picture"),eventsControllers.updateEvents)
 eventsRouter.get("/:id", eventsControllers.getOneEvents)
+eventsRouter.delete("/manage/:id", eventsControllers.deleteEventByCreatedBy)
 
 module.exports = eventsRouter

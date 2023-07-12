@@ -297,3 +297,30 @@ exports.updateEvents = async (request, response) => {
     }
 
 }
+
+
+exports.deleteEventByCreatedBy = async (req, response) => {
+    try {
+        const eventId = req.params.id
+        const userId = req.user.id 
+    
+        const event = await eventsModels.findOneByUserid({ id: eventId, userId })
+        if (!event) {
+            return response.status(404).json({
+                success: false,
+                message: "Error: Event not found",
+                results: ""
+            })
+        }
+    
+        await eventsModels.destroyEventByCreatedBy(eventId, userId)
+    
+        return response.json({
+            success: true,
+            message: "Event deleted successfully",
+            results: ""
+        })
+    } catch (err) {
+        return errorHandler(response, err)
+    }
+}

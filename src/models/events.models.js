@@ -137,3 +137,16 @@ DELETE FROM "events" WHERE "id"=$1
     const {rows} = await db.query(query, values)
     return rows [0]
 }
+
+
+exports.destroyEventByCreatedBy = async function(eventId, userId) {
+    const query = `
+    DELETE FROM "events" e
+    USING users u
+    WHERE e.id = $1 AND e."createdBy" = u.id AND u.id = $2
+    RETURNING e.*
+  `
+    const values = [eventId, userId]
+    const { rows } = await db.query(query, values)
+    return rows[0]
+}
