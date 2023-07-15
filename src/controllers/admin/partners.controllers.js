@@ -93,7 +93,7 @@ exports.createPartners = async (request, response) => {
             ...request.body
         }
         if(request.file){
-            data.picture = request.file.filename
+            data.picture = request.file.path
         }
         const partners = await partnersModels.insert(data)
         return response.json({
@@ -116,7 +116,7 @@ exports.updatePartners = async (request, response) => {
         }
         console.log(data.picture, "data controller")
         if(request.file){
-            data.picture = request.file.filename
+            data.picture = request.file.path
         }
         const resultUpdate = await partnersModels.update(request.params.id, data)
         // console.log(data)
