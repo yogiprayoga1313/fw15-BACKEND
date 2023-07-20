@@ -95,7 +95,7 @@ exports.getOneEvents = async (request, response) => {
 
 
 exports.getEvents = async (request, response) => {
-    console.log("ini dimana datanya?")
+    // console.log("ini dimana datanya?")
     try {
         if(!request.headers.authorization){
             throw Error("Unauthorized!")
@@ -302,6 +302,7 @@ exports.updateEvents = async (request, response) => {
 exports.deleteEventByCreatedBy = async (req, response) => {
     try {
         const eventId = req.params.id
+        console.log(req.user)
         const userId = req.user.id 
     
         const event = await eventsModels.findOneByUserid({ id: eventId, userId })
